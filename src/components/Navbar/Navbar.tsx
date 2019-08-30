@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { NavLink } from "react-router-dom";
+
 const NavbarWrapper = styled.div`
   min-width: 280px;
   height: 100%;
@@ -19,6 +21,8 @@ const NavbarWrapper = styled.div`
     color: #fff;
     font-size: 1rem;
     margin-bottom: 10px;
+    text-decoration: none;
+    outline: none;
   }
 `;
 
@@ -26,13 +30,23 @@ export const Navbar: React.FC = () => {
   return (
     <NavbarWrapper>
       <div>
-        <a href="/">Access</a>
-        <a href="/">Shop</a>
-        <a href="/">Help</a>
+        <NavLink to={`/access`} activeStyle={{ color: "red" }}>
+          Access
+        </NavLink>
+        <NavLink exact={true} to="/" activeStyle={{ color: "red" }}>
+          Shop
+        </NavLink>
+        <NavLink to={`/help`} activeStyle={{ color: "red" }}>
+          Help
+        </NavLink>
       </div>
       <div>
-        <a href="/">Log in</a>
-        <a href="/">Register</a>
+        <NavLink to={`/login`} activeStyle={{ color: "red" }}>
+          Log in
+        </NavLink>
+        <NavLink to={`/register`} activeStyle={{ color: "red" }}>
+          Register
+        </NavLink>
       </div>
     </NavbarWrapper>
   );
