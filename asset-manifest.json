@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.js": "/origin-like-project/static/js/main.5d7052f1.chunk.js",
+    "main.js.map": "/origin-like-project/static/js/main.5d7052f1.chunk.js.map",
+    "runtime~main.js": "/origin-like-project/static/js/runtime~main.57c63e07.js",
+    "runtime~main.js.map": "/origin-like-project/static/js/runtime~main.57c63e07.js.map",
+    "static/css/2.d5794a55.chunk.css": "/origin-like-project/static/css/2.d5794a55.chunk.css",
+    "static/js/2.77194535.chunk.js": "/origin-like-project/static/js/2.77194535.chunk.js",
+    "static/js/2.77194535.chunk.js.map": "/origin-like-project/static/js/2.77194535.chunk.js.map",
+    "index.html": "/origin-like-project/index.html",
+    "precache-manifest.584cbe014886035231f18f75b3633505.js": "/origin-like-project/precache-manifest.584cbe014886035231f18f75b3633505.js",
+    "service-worker.js": "/origin-like-project/service-worker.js",
+    "static/css/2.d5794a55.chunk.css.map": "/origin-like-project/static/css/2.d5794a55.chunk.css.map"
+  }
+}
