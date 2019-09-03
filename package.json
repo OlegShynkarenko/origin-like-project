@@ -2,6 +2,7 @@
   "name": "origin-like-project",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://olegshynkarenko.github.io/origin-like-project/",
   "dependencies": {
     "@atlaskit/css-reset": "^5.0.8",
     "react": "^16.9.0",
@@ -22,6 +23,7 @@
     "@types/styled-components": "^4.1.18",
     "cz-conventional-changelog": "^3.0.2",
     "eslint": "^6.2.2",
+    "gh-pages": "^2.1.1",
     "husky": "^3.0.4",
     "lint-staged": "^9.2.5",
     "prettier": "1.18.2",
@@ -32,7 +34,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "commit": "npx git-cz"
+    "commit": "npx git-cz",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -51,7 +55,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
     }
   },
   "lint-staged": {
