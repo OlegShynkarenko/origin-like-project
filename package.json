@@ -4,12 +4,6 @@
   "private": true,
   "dependencies": {
     "@atlaskit/css-reset": "^5.0.8",
-    "@types/jest": "24.0.18",
-    "@types/node": "12.7.2",
-    "@types/react": "16.9.2",
-    "@types/react-dom": "16.9.0",
-    "@types/react-router-dom": "^4.3.5",
-    "@types/styled-components": "^4.1.18",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.1",
@@ -20,6 +14,13 @@
     "typescript": "3.6.2"
   },
   "devDependencies": {
+    "@types/jest": "24.0.18",
+    "@types/node": "12.7.2",
+    "@types/react": "16.9.2",
+    "@types/react-dom": "16.9.0",
+    "@types/react-router-dom": "^4.3.5",
+    "@types/styled-components": "^4.1.18",
+    "cz-conventional-changelog": "^3.0.2",
     "eslint": "^6.2.2",
     "husky": "^3.0.4",
     "lint-staged": "^9.2.5",
@@ -30,7 +31,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "commit": "npx git-cz"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -57,5 +59,10 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
