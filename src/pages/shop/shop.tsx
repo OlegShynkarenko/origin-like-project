@@ -1,5 +1,5 @@
 import React from "react";
-import { DummyContent } from "../../DummyContent";
+import { DummyContent } from "../../components/DummyContent";
 
 export const Shop: React.FC = () => {
   return (
