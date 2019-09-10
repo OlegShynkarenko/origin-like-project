@@ -1,7 +1,7 @@
 import React from "react";
 
-import { LogIn } from "../../components/Authentication/LogIn/LogIn";
 import styled from "styled-components";
+import { Authentication } from "../../components/Authentication/Authentication";
 
 const AuthWrapper = styled.div`
   display: flex;
@@ -11,7 +11,7 @@ const AuthWrapper = styled.div`
 export const authentication: React.FC = ({ match }: any) => {
   return (
     <AuthWrapper>
-      {match.path === "/login" ? <LogIn /> : "Please register"}
+      <Authentication path={match.path} />
     </AuthWrapper>
   );
 };

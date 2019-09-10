@@ -10,6 +10,7 @@ const App: React.FC = () => {
       <Switch>
         <Route exact path="/login" component={authentication} />
         <Route exact path="/register" component={authentication} />
+        <Route exact path="/reset-password" component={authentication} />
         <Route path="/" component={Main} />
       </Switch>
     </BrowserRouter>
