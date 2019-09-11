@@ -1,9 +1,9 @@
-import React, { FormEventHandler, ReactNode, useState } from "react";
+import React, { ReactNode, useState } from "react";
 import styled from "styled-components";
 
 import { StyledLoginWrapper as LoginWrapper } from "./StyledLoginWrapper";
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
-import { NavLink, Redirect } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Input } from "../../shared/Input/Input";
 
 const InputWrapper = styled.div`
@@ -21,31 +21,35 @@ interface Props {
   submitData: (inputData: object) => void;
 }
 
-interface DataObject {
-  isValid: boolean;
-  type: string;
-  value: string;
-}
-
 export const LogIn: React.FC<Props> = props => {
   const [state, setState] = useState({
+    authType: "Login",
     inputData: {
-      isValid: false,
-      type: "",
-      value: ""
+      passwordField: "",
+      emailField: ""
     }
   });
 
-  const isValidated = (inputData: DataObject) => {
-    setState({ ...state, ...inputData });
+  const handleChange = (inputType: string, value: string) => {
+    if (inputType === "email") {
+      // @ts-ignore
+      setState({
+        ...state,
+        inputData: { ...state.inputData.emailField, value }
+      });
+    }
+    if (inputType === "password") {
+      // @ts-ignore
+      setState({
+        ...state,
+        inputData: { ...state.inputData.passwordField, value }
+      });
+    }
   };
 
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    console.log(state);
-    if (state.inputData.isValid) {
-      props.submitData(state.inputData);
-    }
+    props.submitData(state);
   };
 
   return (
@@ -54,12 +58,12 @@ export const LogIn: React.FC<Props> = props => {
       <form onSubmit={handleSubmit}>
         <InputWrapper>
           <Input
-            isValidated={isValidated}
+            handleChange={handleChange}
             type="email"
             placeholder={"Type your email example@example.com"}
           />
           <Input
-            isValidated={isValidated}
+            handleChange={handleChange}
             type="password"
             placeholder={"Type your password"}
           />

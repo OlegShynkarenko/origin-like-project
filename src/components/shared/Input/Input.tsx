@@ -18,20 +18,10 @@ export const StyledInput = styled.input`
 interface Props extends React.HTMLProps<HTMLInputElement> {
   type: string;
   placeholder: string;
-  isValidated: (type: {
-    isValid: boolean;
-    type: string;
-    value: string;
-  }) => void;
+  handleChange: (inputType: any, value: any) => void;
 }
 
-export const Input: React.FC<Props> = ({ type, placeholder, isValidated }) => {
-  const [state, setState] = useState({
-    isValid: false,
-    type: `${type}`,
-    value: ""
-  });
-
+export const Input: React.FC<Props> = ({ type, placeholder, handleChange }) => {
   const isValid = (inputValue: string, inputType: string) => {
     if (inputType === "email") {
       return emailValidator(inputValue);
@@ -40,32 +30,20 @@ export const Input: React.FC<Props> = ({ type, placeholder, isValidated }) => {
     }
   };
 
-  const handleChange = (event: any) => {
+  const handleOnChange = (event: any) => {
     const value = event.target.value;
     const inputType = event.target.type;
     if (isValid(value, inputType)) {
-      setState({
-        isValid: true,
-        type: `${type}`,
-        value
-      });
+      handleChange(inputType, value);
     } else {
-      setState({
-        isValid: true,
-        type: `${type}`,
-        value
-      });
-    }
-
-    if (state.isValid) {
-      isValidated(state);
+      handleChange("", "");
     }
   };
 
   return (
     <StyledInput
       type={type}
-      onChange={handleChange}
+      onChange={handleOnChange}
       placeholder={placeholder}
     />
   );

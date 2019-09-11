@@ -16,7 +16,7 @@ export class Authentication extends Component<Props> {
     this.setState({ shouldReset: true });
   };
 
-  handleDataSubmission = (inputData: object, type = undefined) => {
+  handleDataSubmission = (inputData: object) => {
     console.log(inputData);
 
     this.handleRedirectOnPasswordReset();

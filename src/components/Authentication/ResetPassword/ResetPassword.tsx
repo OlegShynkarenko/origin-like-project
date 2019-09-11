@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, SyntheticEvent, useState } from "react";
 import styled from "styled-components";
 import { Redirect } from "react-router-dom";
 
@@ -27,31 +27,23 @@ interface Props {
   submitData: (inputData: object) => void;
 }
 
-interface DataObject {
-  isValid: boolean;
-  type: string;
-  value: string;
-}
-
 export const ResetPassword: React.FC<Props> = props => {
   const [state, setState] = useState({
+    authType: "reset password",
     inputData: {
-      isValid: false,
-      type: "",
-      value: ""
+      emailField: ""
     }
   });
 
   const redirectPage = <Redirect to={"/login"} />;
 
-  const isValidated = (inputData: DataObject) => {
-    setState({ inputData: inputData });
+  const handleChange = (value: string) => {
+    // @ts-ignore
+    setState({ ...state, inputData: { ...state.inputData.emailField, value } });
   };
 
   const handleSubmit = () => {
-    if (state.inputData.isValid) {
-      props.submitData(state.inputData);
-    }
+    props.submitData(state);
   };
 
   const component = (
@@ -64,7 +56,7 @@ export const ResetPassword: React.FC<Props> = props => {
       <form onSubmit={handleSubmit}>
         <InputWrapper>
           <Input
-            isValidated={isValidated}
+            handleChange={handleChange}
             type="email"
             placeholder={"Type your email example@example.com"}
           />
