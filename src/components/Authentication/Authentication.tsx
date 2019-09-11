@@ -5,24 +5,18 @@ import { ResetPassword } from "./ResetPassword/ResetPassword";
 
 interface Props {
   path: string;
+  history: any;
 }
 
 export class Authentication extends Component<Props> {
-  state = {
-    shouldReset: false
-  };
-
   handleRedirectOnPasswordReset = () => {
-    this.setState({ shouldReset: true });
+    this.props.history.push("/login");
   };
 
   handleDataSubmission = (inputData: object) => {
-    console.log(inputData);
+    console.log("Submitted data", inputData);
 
     this.handleRedirectOnPasswordReset();
-    setTimeout(() => {
-      this.setState({ shouldReset: false });
-    }, 2);
   };
 
   handleAuthPath = (path: string) => {
@@ -36,7 +30,6 @@ export class Authentication extends Component<Props> {
           <ResetPassword
             click={this.handleRedirectOnPasswordReset}
             submitData={this.handleDataSubmission}
-            redirect={this.state.shouldReset}
           />
         );
       default:

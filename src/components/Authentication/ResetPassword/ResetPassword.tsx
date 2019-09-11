@@ -22,7 +22,6 @@ const InputWrapper = styled.div`
 `;
 
 interface Props {
-  redirect: boolean;
   click: (event: React.MouseEvent<HTMLButtonElement>) => void;
   children?: ReactNode;
   submitData: (inputData: object) => void;
@@ -58,7 +57,7 @@ export const ResetPassword: React.FC<Props> = props => {
     }
   };
 
-  const component = (
+  return (
     <Wrapper>
       <h3>Password Recovery</h3>
       <p>
@@ -83,6 +82,4 @@ export const ResetPassword: React.FC<Props> = props => {
       </form>
     </Wrapper>
   );
-
-  return props.redirect ? redirectPage : component;
 };

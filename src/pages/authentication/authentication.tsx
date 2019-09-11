@@ -8,10 +8,10 @@ const AuthWrapper = styled.div`
   justify-content: center;
 `;
 
-export const authentication: React.FC = ({ match }: any) => {
+export const authentication: React.FC = ({ match, history }: any) => {
   return (
     <AuthWrapper>
-      <Authentication path={match.path} />
+      <Authentication history={history} path={match.path} />
     </AuthWrapper>
   );
 };
