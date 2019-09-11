@@ -1,9 +1,10 @@
-import React, { ReactNode, SyntheticEvent, useState } from "react";
+import React, { ReactNode, useState } from "react";
 import styled from "styled-components";
 import { Redirect } from "react-router-dom";
 
 import { Input } from "../../shared/Input/Input";
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
+import { emailValidator } from "../../../utils/validator/validator";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -37,13 +38,24 @@ export const ResetPassword: React.FC<Props> = props => {
 
   const redirectPage = <Redirect to={"/login"} />;
 
-  const handleChange = (value: string) => {
-    // @ts-ignore
-    setState({ ...state, inputData: { ...state.inputData.emailField, value } });
+  const isValid = (inputValue: string) => {
+    return emailValidator(inputValue);
+  };
+
+  const handleChange = (event: any) => {
+    const inputValue = event.target.value;
+    setState({
+      authType: "reset password",
+      ...state,
+      // @ts-ignore
+      inputData: { ...state.inputData, emailField: inputValue }
+    });
   };
 
   const handleSubmit = () => {
-    props.submitData(state);
+    if (isValid(state.inputData.emailField)) {
+      props.submitData(state);
+    }
   };
 
   const component = (
@@ -61,8 +73,11 @@ export const ResetPassword: React.FC<Props> = props => {
             placeholder={"Type your email example@example.com"}
           />
         </InputWrapper>
-        <button type="submit">click</button>
-        <ButtonComponent type="submit" appearance="warning">
+        <ButtonComponent
+          type="submit"
+          onClick={handleSubmit}
+          appearance="warning"
+        >
           Send
         </ButtonComponent>
       </form>

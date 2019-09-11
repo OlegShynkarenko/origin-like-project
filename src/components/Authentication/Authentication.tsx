@@ -1,4 +1,4 @@
-import React, { Component, FormEvent } from "react";
+import React, { Component } from "react";
 
 import { LogIn } from "./LogIn/LogIn";
 import { ResetPassword } from "./ResetPassword/ResetPassword";

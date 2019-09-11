@@ -5,6 +5,8 @@ import { StyledLoginWrapper as LoginWrapper } from "./StyledLoginWrapper";
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
 import { NavLink } from "react-router-dom";
 import { Input } from "../../shared/Input/Input";
+import { emailValidator } from "../../../utils/validator/validator";
+import { passwordValidator } from "../../../utils/validator/validator";
 
 const InputWrapper = styled.div`
   margin-top: 20px;
@@ -30,26 +32,39 @@ export const LogIn: React.FC<Props> = props => {
     }
   });
 
-  const handleChange = (inputType: string, value: string) => {
+  const isValid = (inputValue: string, inputType: string) => {
+    if (inputType === "email") {
+      return emailValidator(inputValue);
+    } else if (inputType === "password") {
+      return passwordValidator(inputValue);
+    }
+  };
+
+  const handleChange = (event: any) => {
+    const inputValue = event.target.value;
+    const inputType = event.target.type;
     if (inputType === "email") {
       // @ts-ignore
       setState({
         ...state,
-        inputData: { ...state.inputData.emailField, value }
+        inputData: { ...state.inputData, emailField: inputValue }
       });
-    }
-    if (inputType === "password") {
+    } else if (inputType === "password") {
       // @ts-ignore
       setState({
         ...state,
-        inputData: { ...state.inputData.passwordField, value }
+        inputData: { ...state.inputData, passwordField: inputValue }
       });
     }
   };
 
-  const handleSubmit = (event: { preventDefault: () => void }) => {
-    event.preventDefault();
-    props.submitData(state);
+  const handleSubmit = () => {
+    const {
+      inputData: { emailField, passwordField }
+    } = state;
+    if (isValid(emailField, "email") && isValid(passwordField, "password")) {
+      props.submitData(state);
+    }
   };
 
   return (
@@ -68,9 +83,6 @@ export const LogIn: React.FC<Props> = props => {
             placeholder={"Type your password"}
           />
         </InputWrapper>
-        <button onSubmit={handleSubmit} type="submit">
-          sdfsdf
-        </button>
         <ButtonComponent
           type="submit"
           onClick={handleSubmit}
