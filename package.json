@@ -15,7 +15,7 @@
     "react-scripts": "3.1.1",
     "redux": "^4.0.4",
     "redux-logger": "^3.0.6",
-    "simple-react-library_button-component": "^1.0.3",
+    "simple-react-library_button-component": "^1.0.5",
     "styled-components": "^4.3.2",
     "typescript": "3.6.2",
     "validator": "^11.1.0"
@@ -28,11 +28,11 @@
     "@types/react": "16.9.2",
     "@types/react-dom": "16.9.0",
     "@types/react-router-dom": "^4.3.5",
-    "@types/styled-components": "^4.1.18",
+    "@types/styled-components": "^4.1.19",
     "cz-conventional-changelog": "^3.0.2",
-    "eslint": "^6.2.2",
+    "eslint": "^6.3.0",
     "gh-pages": "^2.1.1",
-    "husky": "^3.0.4",
+    "husky": "^3.0.5",
     "lint-staged": "^9.2.5",
     "prettier": "1.18.2",
     "redux-devtools": "^3.5.0"

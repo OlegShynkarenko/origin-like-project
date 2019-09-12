@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { FormEvent, ReactNode, useState } from "react";
 import styled from "styled-components";
 
 import { Input } from "../../shared/Input/Input";
@@ -47,7 +47,8 @@ export const ResetPassword: React.FC<Props> = props => {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
     if (isValid(state.inputData.emailField)) {
       props.submitData(state);
     }
@@ -68,11 +69,7 @@ export const ResetPassword: React.FC<Props> = props => {
             placeholder={"Type your email example@example.com"}
           />
         </InputWrapper>
-        <ButtonComponent
-          type="submit"
-          onClick={handleSubmit}
-          appearance="warning"
-        >
+        <ButtonComponent type="submit" appearance="warning" width="100%">
           Send
         </ButtonComponent>
       </form>

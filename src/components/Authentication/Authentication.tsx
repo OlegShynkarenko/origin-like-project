@@ -27,9 +27,9 @@ class Authentication extends Component<Props> {
   };
 
   handleDataSubmission = (inputData: InputData) => {
-    // @ts-ignore
     const {
       authType,
+      // @ts-ignore
       inputData: { emailField, passwordField }
     } = inputData;
     const id = new Date().valueOf();
@@ -80,9 +80,9 @@ function mapDispatchToProps(
   };
 }
 
-// @ts-ignore
 const AuthComponent = connect(
   null,
   mapDispatchToProps
+  // @ts-ignore
 )(Authentication);
 export default AuthComponent;

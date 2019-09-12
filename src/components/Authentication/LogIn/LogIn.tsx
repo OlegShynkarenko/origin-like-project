@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { FormEvent, ReactNode, useState } from "react";
 import styled from "styled-components";
 
 import { StyledLoginWrapper as LoginWrapper } from "./StyledLoginWrapper";
@@ -58,7 +58,8 @@ export const LogIn: React.FC<Props> = props => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
     const {
       inputData: { emailField, passwordField }
     } = state;
@@ -83,11 +84,7 @@ export const LogIn: React.FC<Props> = props => {
             placeholder={"Type your password"}
           />
         </InputWrapper>
-        <ButtonComponent
-          type="submit"
-          onClick={handleSubmit}
-          appearance="warning"
-        >
+        <ButtonComponent type="submit" appearance="warning" width="100%">
           Log in
         </ButtonComponent>
       </form>
