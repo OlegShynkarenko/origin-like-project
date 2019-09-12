@@ -1,6 +1,5 @@
 import React, { ReactNode, useState } from "react";
 import styled from "styled-components";
-import { Redirect } from "react-router-dom";
 
 import { Input } from "../../shared/Input/Input";
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
@@ -22,7 +21,6 @@ const InputWrapper = styled.div`
 `;
 
 interface Props {
-  click: (event: React.MouseEvent<HTMLButtonElement>) => void;
   children?: ReactNode;
   submitData: (inputData: object) => void;
 }
@@ -34,8 +32,6 @@ export const ResetPassword: React.FC<Props> = props => {
       emailField: ""
     }
   });
-
-  const redirectPage = <Redirect to={"/login"} />;
 
   const isValid = (inputValue: string) => {
     return emailValidator(inputValue);
