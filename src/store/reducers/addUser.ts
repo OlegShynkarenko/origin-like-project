@@ -1,5 +1,5 @@
 const initialState = {
-  users: []
+  auth: {}
 };
 
 interface Data {
@@ -11,19 +11,16 @@ interface Data {
   type: string;
 }
 
-export const saveUserReducer = (state = initialState, action: Data) => {
-  console.log("REDUCER", action);
+export const userLogIn = (state = initialState, action: Data) => {
   switch (action.type) {
     case "SAVE_USER":
       return {
         ...state,
-        users: [
-          {
-            id: action.payload.id,
-            email: action.payload.email,
-            password: action.payload.password
-          }
-        ]
+        auth: {
+          id: action.payload.id,
+          email: action.payload.email,
+          password: action.payload.password
+        }
       };
     case "SOME_ACTION":
       return "something";

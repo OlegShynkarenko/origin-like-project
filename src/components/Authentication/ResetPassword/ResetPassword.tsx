@@ -1,5 +1,6 @@
 import React, { FormEvent, ReactNode, useState } from "react";
 import styled from "styled-components";
+import { History } from "history";
 
 import { Input } from "../../shared/Input/Input";
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
@@ -22,7 +23,7 @@ const InputWrapper = styled.div`
 
 interface Props {
   children?: ReactNode;
-  submitData: (inputData: object) => void;
+  history: History;
 }
 
 export const ResetPassword: React.FC<Props> = props => {
@@ -42,7 +43,6 @@ export const ResetPassword: React.FC<Props> = props => {
     setState({
       authType: "reset password",
       ...state,
-      // @ts-ignore
       inputData: { ...state.inputData, emailField: inputValue }
     });
   };
@@ -50,7 +50,8 @@ export const ResetPassword: React.FC<Props> = props => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     if (isValid(state.inputData.emailField)) {
-      props.submitData(state);
+      console.log("Submit reset password");
+      props.history.push("/login");
     }
   };
 

@@ -1,5 +1,8 @@
 import React, { FormEvent, ReactNode, useState } from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
+import { History } from "history";
 
 import { StyledLoginWrapper as LoginWrapper } from "./StyledLoginWrapper";
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
@@ -7,6 +10,7 @@ import { NavLink } from "react-router-dom";
 import { Input } from "../../shared/Input/Input";
 import { emailValidator } from "../../../utils/validator/validator";
 import { passwordValidator } from "../../../utils/validator/validator";
+import { saveUser } from "../../../store/actionCreators/saveUser";
 
 const InputWrapper = styled.div`
   margin-top: 20px;
@@ -18,12 +22,19 @@ const ResetLink = styled.div`
   cursor: pointer;
 `;
 
-interface Props {
-  children?: ReactNode;
-  submitData: (inputData: object) => void;
+interface authObject {
+  id: number;
+  email: string;
+  password: string;
 }
 
-export const LogIn: React.FC<Props> = props => {
+interface Props {
+  children?: ReactNode;
+  history: History;
+  saveUser: (data: authObject) => void;
+}
+
+const LogIn: React.FC<Props> = props => {
   const [state, setState] = useState({
     authType: "Login",
     inputData: {
@@ -44,13 +55,11 @@ export const LogIn: React.FC<Props> = props => {
     const inputValue = event.target.value;
     const inputType = event.target.type;
     if (inputType === "email") {
-      // @ts-ignore
       setState({
         ...state,
         inputData: { ...state.inputData, emailField: inputValue }
       });
     } else if (inputType === "password") {
-      // @ts-ignore
       setState({
         ...state,
         inputData: { ...state.inputData, passwordField: inputValue }
@@ -60,11 +69,18 @@ export const LogIn: React.FC<Props> = props => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
+    const id = new Date().valueOf();
     const {
       inputData: { emailField, passwordField }
     } = state;
     if (isValid(emailField, "email") && isValid(passwordField, "password")) {
-      props.submitData(state);
+      props.saveUser({
+        id,
+        email: emailField,
+        password: passwordField
+      });
+
+      props.history.push("/");
     }
   };
 
@@ -94,3 +110,15 @@ export const LogIn: React.FC<Props> = props => {
     </LoginWrapper>
   );
 };
+
+function mapDispatchToProps(dispatch: Dispatch) {
+  return {
+    saveUser: (auth: authObject) => dispatch(saveUser(auth))
+  };
+}
+
+const logInComponent = connect(
+  null,
+  mapDispatchToProps
+)(LogIn);
+export default logInComponent;
