@@ -1,25 +1,14 @@
 import React, { FormEvent, ReactNode, useState } from "react";
-import styled from "styled-components";
 import { History } from "history";
 
 import { Input } from "../../shared/Input/Input";
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
 import { emailValidator } from "../../../utils/validator/validator";
-
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 10px;
-  margin-top: 50px;
-  color: #000;
-  width: 400px;
-`;
-
-const InputWrapper = styled.div`
-  margin-top: 20px;
-  margin-bottom: 20px;
-`;
+import {
+  InputWrapper,
+  AuthAligner,
+  AuthWrapper
+} from "../sharedStyledComponents";
 
 interface Props {
   children?: ReactNode;
@@ -56,24 +45,26 @@ export const ResetPassword: React.FC<Props> = props => {
   };
 
   return (
-    <Wrapper>
-      <h3>Password Recovery</h3>
-      <p>
-        Enter the email address of the account you're having trouble accessing,
-        and we'll send you instructions to reset your password
-      </p>
-      <form onSubmit={handleSubmit}>
-        <InputWrapper>
-          <Input
-            handleChange={handleChange}
-            type="email"
-            placeholder={"Type your email example@example.com"}
-          />
-        </InputWrapper>
-        <ButtonComponent type="submit" appearance="warning" width="100%">
-          Send
-        </ButtonComponent>
-      </form>
-    </Wrapper>
+    <AuthAligner>
+      <AuthWrapper>
+        <h3>Password Recovery</h3>
+        <p>
+          Enter the email address of the account you're having trouble
+          accessing, and we'll send you instructions to reset your password
+        </p>
+        <form onSubmit={handleSubmit} noValidate>
+          <InputWrapper>
+            <Input
+              handleChange={handleChange}
+              type="email"
+              placeholder={"Type your email example@example.com"}
+            />
+          </InputWrapper>
+          <ButtonComponent type="submit" appearance="warning" width="100%">
+            Send
+          </ButtonComponent>
+        </form>
+      </AuthWrapper>
+    </AuthAligner>
   );
 };

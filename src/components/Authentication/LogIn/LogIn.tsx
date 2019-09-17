@@ -1,115 +1,127 @@
-import React, { FormEvent, ReactNode, useState } from "react";
+import React, { Component, FormEvent } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { History } from "history";
-
-import { StyledLoginWrapper as LoginWrapper } from "./StyledLoginWrapper";
-import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
 import { NavLink } from "react-router-dom";
-import { Input } from "../../shared/Input/Input";
-import { emailValidator } from "../../../utils/validator/validator";
-import { passwordValidator } from "../../../utils/validator/validator";
-import { saveUser } from "../../../store/actionCreators/saveUser";
 
-const InputWrapper = styled.div`
-  margin-top: 20px;
-  margin-bottom: 20px;
-`;
+import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
+import { Input } from "../../shared/Input/Input";
+import {
+  emailValidator,
+  passwordValidator
+} from "../../../utils/validator/validator";
+import { saveUser } from "../../../store/actionCreators/saveUser";
+import {
+  InputWrapper,
+  ErrorsWrapper,
+  Error,
+  AuthAligner,
+  AuthWrapper
+} from "../sharedStyledComponents";
+import { authObject, Props, State } from "./interfaces";
 
 const ResetLink = styled.div`
   margin-top: 10px;
   cursor: pointer;
 `;
 
-interface authObject {
-  id: number;
-  email: string;
-  password: string;
-}
-
-interface Props {
-  children?: ReactNode;
-  history: History;
-  saveUser: (data: authObject) => void;
-}
-
-const LogIn: React.FC<Props> = props => {
-  const [state, setState] = useState({
+class LogIn extends Component<Props, State> {
+  state = {
     authType: "Login",
     inputData: {
       passwordField: "",
       emailField: ""
-    }
-  });
-
-  const isValid = (inputValue: string, inputType: string) => {
-    if (inputType === "email") {
-      return emailValidator(inputValue);
-    } else if (inputType === "password") {
-      return passwordValidator(inputValue);
-    }
+    },
+    isError: false,
+    emailErrorMessage: "",
+    passwordErrorMessage: ""
   };
 
-  const handleChange = (event: any) => {
+  handleChange = (event: any) => {
     const inputValue = event.target.value;
     const inputType = event.target.type;
     if (inputType === "email") {
-      setState({
-        ...state,
-        inputData: { ...state.inputData, emailField: inputValue }
+      this.setState({
+        ...this.state,
+        inputData: { ...this.state.inputData, emailField: inputValue },
+        isError: false,
+        emailErrorMessage: "",
+        passwordErrorMessage: ""
       });
     } else if (inputType === "password") {
-      setState({
-        ...state,
-        inputData: { ...state.inputData, passwordField: inputValue }
+      this.setState({
+        ...this.state,
+        inputData: { ...this.state.inputData, passwordField: inputValue },
+        isError: false,
+        emailErrorMessage: "",
+        passwordErrorMessage: ""
       });
     }
   };
 
-  const handleSubmit = (event: FormEvent) => {
+  handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     const id = new Date().valueOf();
     const {
       inputData: { emailField, passwordField }
-    } = state;
-    if (isValid(emailField, "email") && isValid(passwordField, "password")) {
-      props.saveUser({
+    } = this.state;
+
+    const emailValidation = emailValidator(emailField);
+    const passwordValidation = passwordValidator(passwordField);
+
+    if (emailValidation.isValid && passwordValidation.isValid) {
+      this.props.saveUser({
         id,
         email: emailField,
         password: passwordField
       });
-
-      props.history.push("/");
+      this.props.history.push("/");
+    } else {
+      this.setState(() => {
+        return {
+          ...this.state,
+          isError: true,
+          emailErrorMessage: emailValidation.message,
+          passwordErrorMessage: passwordValidation.message
+        };
+      });
     }
   };
 
-  return (
-    <LoginWrapper>
-      <h3>Log in with your account</h3>
-      <form onSubmit={handleSubmit}>
-        <InputWrapper>
-          <Input
-            handleChange={handleChange}
-            type="email"
-            placeholder={"Type your email example@example.com"}
-          />
-          <Input
-            handleChange={handleChange}
-            type="password"
-            placeholder={"Type your password"}
-          />
-        </InputWrapper>
-        <ButtonComponent type="submit" appearance="warning" width="100%">
-          Log in
-        </ButtonComponent>
-      </form>
-      <ResetLink>
-        <NavLink to={"/reset-password"}>Forget your password?</NavLink>
-      </ResetLink>
-    </LoginWrapper>
-  );
-};
+  render() {
+    return (
+      <AuthAligner>
+        <AuthWrapper>
+          <h3>Log in with your account</h3>
+          <form onSubmit={this.handleSubmit} noValidate>
+            <InputWrapper>
+              <Input
+                handleChange={this.handleChange}
+                type="email"
+                placeholder={"Type your email example@example.com"}
+              />
+              <Input
+                handleChange={this.handleChange}
+                type="password"
+                placeholder={"Type your password"}
+              />
+            </InputWrapper>
+            <ButtonComponent type="submit" appearance="warning" width="100%">
+              Log in
+            </ButtonComponent>
+          </form>
+          <ErrorsWrapper>
+            <Error>{this.state.emailErrorMessage}</Error>
+            <Error>{this.state.passwordErrorMessage}</Error>
+          </ErrorsWrapper>
+          <ResetLink>
+            <NavLink to={"/reset-password"}>Forget your password?</NavLink>
+          </ResetLink>
+        </AuthWrapper>
+      </AuthAligner>
+    );
+  }
+}
 
 function mapDispatchToProps(dispatch: Dispatch) {
   return {
