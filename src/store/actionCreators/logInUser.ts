@@ -6,7 +6,7 @@ interface authObject {
   password: string;
 }
 
-export const saveUser = (auth: authObject) => {
+export const logInUser = (auth: authObject) => {
   console.log("ActionCreator has been called");
   return {
     type: SAVE_USER,

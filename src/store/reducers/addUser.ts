@@ -1,5 +1,6 @@
 const initialState = {
-  auth: {}
+  auth: {},
+  user: {}
 };
 
 interface Data {
@@ -13,7 +14,7 @@ interface Data {
 
 export const userLogIn = (state = initialState, action: Data) => {
   switch (action.type) {
-    case "SAVE_USER":
+    case "LOGIN_USER":
       return {
         ...state,
         auth: {
@@ -22,7 +23,7 @@ export const userLogIn = (state = initialState, action: Data) => {
           password: action.payload.password
         }
       };
-    case "SOME_ACTION":
+    case "REGISTER_USER":
       return "something";
     default:
       return state;

@@ -57,7 +57,7 @@ export const ResetPassword: React.FC<Props> = props => {
             <Input
               handleChange={handleChange}
               type="email"
-              placeholder={"Type your email example@example.com"}
+              placeholder={"Password"}
             />
           </InputWrapper>
           <ButtonComponent type="submit" appearance="warning" width="100%">

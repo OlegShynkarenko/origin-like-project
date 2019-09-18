@@ -5,11 +5,11 @@ export const StyledInput = styled.input`
   display: block;
   width: 100%;
   border-radius: 5px;
-  height: 30px;
   border: 1px solid lightgray;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 10px;
+  margin-bottom: 5px;
   box-sizing: border-box;
+  font-size: 1rem;
 `;
 
 interface Props extends React.HTMLProps<HTMLInputElement> {

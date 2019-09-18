@@ -10,7 +10,7 @@ import {
   emailValidator,
   passwordValidator
 } from "../../../utils/validator/validator";
-import { saveUser } from "../../../store/actionCreators/saveUser";
+import { logInUser } from "../../../store/actionCreators/logInUser";
 import {
   InputWrapper,
   ErrorsWrapper,
@@ -98,12 +98,12 @@ class LogIn extends Component<Props, State> {
               <Input
                 handleChange={this.handleChange}
                 type="email"
-                placeholder={"Type your email example@example.com"}
+                placeholder={"Email Address"}
               />
               <Input
                 handleChange={this.handleChange}
                 type="password"
-                placeholder={"Type your password"}
+                placeholder={"Password"}
               />
             </InputWrapper>
             <ButtonComponent type="submit" appearance="warning" width="100%">
@@ -125,7 +125,7 @@ class LogIn extends Component<Props, State> {
 
 function mapDispatchToProps(dispatch: Dispatch) {
   return {
-    saveUser: (auth: authObject) => dispatch(saveUser(auth))
+    saveUser: (auth: authObject) => dispatch(logInUser(auth))
   };
 }
 
