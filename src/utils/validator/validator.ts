@@ -1,7 +1,7 @@
 import validator from "validator";
 
-export const passwordValidator = (pass: string) => {
-  return validator.isLength(pass, { min: 8, max: 25 })
+export const passwordValidator = (pass: string | undefined) => {
+  return validator.isLength(pass as string, { min: 8, max: 25 })
     ? { isValid: true }
     : {
         isValid: false,
@@ -9,8 +9,8 @@ export const passwordValidator = (pass: string) => {
       };
 };
 
-export const emailValidator = (email: string) => {
-  return validator.isEmail(email, {
+export const emailValidator = (email: string | undefined) => {
+  return validator.isEmail(email as string, {
     allow_utf8_local_part: false,
     require_tld: true
   })
@@ -18,8 +18,9 @@ export const emailValidator = (email: string) => {
     : { isValid: false, message: "Email address is invalid" };
 };
 
-export const textValidator = (text: string) => {
-  return validator.isAlpha(text, "en-US") && !validator.isEmpty(text)
+export const textValidator = (text: string | undefined) => {
+  return validator.isAlpha(text as string, "en-US") &&
+    !validator.isEmpty(text as string)
     ? { isValid: true }
     : {
         isValid: false,

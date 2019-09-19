@@ -41,23 +41,23 @@ interface Props extends RouteComponentProps {
 }
 
 interface Data {
-  country?: string | undefined;
-  date?: string | undefined;
-  month?: string | undefined;
-  year?: string | undefined;
-  email?: string | undefined;
-  password?: string | undefined;
-  firstName?: string | undefined;
-  lastName?: string | undefined;
+  country?: string;
+  date?: string;
+  month?: string;
+  year?: string;
+  email?: string;
+  password?: string;
+  firstName?: string;
+  lastName?: string;
 }
 
 class Register extends Component<Props, State> {
   state = {
     userData: {
-      country: "",
-      date: "",
-      month: "",
-      year: "",
+      country: "Country",
+      date: "Date",
+      month: "Month",
+      year: "Year",
       email: "",
       password: "",
       firstName: "",
@@ -115,6 +115,7 @@ class Register extends Component<Props, State> {
               render={props => (
                 <MainInfo
                   {...props}
+                  data={this.state.userData}
                   submitData={this.handleSetUserDataToTheState}
                 />
               )}

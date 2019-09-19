@@ -21,21 +21,21 @@ interface Props {
 }
 
 interface Data {
-  country?: string | undefined;
-  date?: string | undefined;
-  month?: string | undefined;
-  year?: string | undefined;
-  email?: string | undefined;
-  password?: string | undefined;
-  firstName?: string | undefined;
-  lastName?: string | undefined;
+  country?: string;
+  date?: string;
+  month?: string;
+  year?: string;
+  email?: string;
+  password?: string;
+  firstName?: string;
+  lastName?: string;
 }
 
 interface State {
-  emailField: string;
-  passwordField: string;
-  firstName: string;
-  lastName: string;
+  emailField?: string;
+  passwordField?: string;
+  firstName?: string;
+  lastName?: string;
   isError: boolean;
   emailErrorMessage: string | undefined;
   passwordErrorMessage: string | undefined;

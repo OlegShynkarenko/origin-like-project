@@ -9,20 +9,21 @@ import { ButtonComponent } from "simple-react-library_button-component/lib/Butto
 import { ErrorsWrapper, Error } from "../../sharedStyledComponents";
 
 interface Data {
-  country?: string | undefined;
-  date?: string | undefined;
-  month?: string | undefined;
-  year?: string | undefined;
-  email?: string | undefined;
-  password?: string | undefined;
-  firstName?: string | undefined;
-  lastName?: string | undefined;
+  country?: string;
+  date?: string;
+  month?: string;
+  year?: string;
+  email?: string;
+  password?: string;
+  firstName?: string;
+  lastName?: string;
 }
 
 interface Props {
   history: History;
   match: match;
   submitData: (data: Data, type: string) => void;
+  data: Data;
 }
 
 const SelectGroup = styled.div`
@@ -36,33 +37,22 @@ const SelectGroup = styled.div`
 
 export const MainInfo: React.FC<Props> = props => {
   const [state, setState] = useState({
-    country: "",
-    date: "",
-    month: "",
-    year: "",
+    country: props.data.country,
+    date: props.data.date,
+    month: props.data.month,
+    year: props.data.year,
     isError: false
   });
 
-  let userInfo = { ...state };
   const handleSetDataToTheState = (type: string, value: string) => {
     if (type === "country") {
-      userInfo.country = value;
+      setState({ ...state, country: value });
     } else if (type === "date") {
-      userInfo.date = value;
+      setState({ ...state, date: value });
     } else if (type === "month") {
-      userInfo.month = value;
+      setState({ ...state, month: value });
     } else if (type === "year") {
-      userInfo.year = value;
-    }
-
-    if (!Object.values(userInfo).includes("")) {
-      setState({
-        country: userInfo.country,
-        date: userInfo.date,
-        month: userInfo.month,
-        year: userInfo.year,
-        isError: false
-      });
+      setState({ ...state, year: value });
     }
   };
 
@@ -98,14 +88,34 @@ export const MainInfo: React.FC<Props> = props => {
       <form noValidate onSubmit={handleSubmit}>
         <InputWrapper>
           <p>Country/Region</p>
-          <Select id="country" type="country" onChange={handleSelectChange} />
+          <Select
+            id="country"
+            value={props.data.country}
+            type="country"
+            onChange={handleSelectChange}
+          />
         </InputWrapper>
         <InputWrapper>
           <p>Date of birth</p>
           <SelectGroup>
-            <Select id="date" type="date" onChange={handleSelectChange} />
-            <Select id="month" type="month" onChange={handleSelectChange} />
-            <Select id="year" type="year" onChange={handleSelectChange} />
+            <Select
+              id="date"
+              value={props.data.date}
+              type="date"
+              onChange={handleSelectChange}
+            />
+            <Select
+              id="month"
+              value={props.data.month}
+              type="month"
+              onChange={handleSelectChange}
+            />
+            <Select
+              id="year"
+              value={props.data.year}
+              type="year"
+              onChange={handleSelectChange}
+            />
           </SelectGroup>
         </InputWrapper>
         <ButtonComponent

@@ -24,6 +24,7 @@ const SelectComponent = styled.select`
 interface Props extends React.HTMLProps<HTMLSelectElement> {
   type: string;
   onChange: (event: any) => void;
+  value: string | undefined;
 }
 
 export const Select: React.FC<Props> = props => {
@@ -63,17 +64,14 @@ export const Select: React.FC<Props> = props => {
     }
   };
 
-  const defaultOption =
-    props.type.charAt(0).toUpperCase() + props.type.slice(1);
-
   return (
     <SelectComponent
       id={props.id}
-      defaultValue={defaultOption}
       onChange={props.onChange}
+      defaultValue={props.value}
     >
-      <option value={defaultOption} disabled>
-        {defaultOption}
+      <option defaultValue={props.value} disabled>
+        {props.value}
       </option>
       {renderOptions()}
     </SelectComponent>
