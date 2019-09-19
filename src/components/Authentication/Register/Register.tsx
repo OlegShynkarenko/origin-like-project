@@ -11,7 +11,9 @@ import { History } from "history";
 
 interface UserState {
   country: string | undefined;
-  dateOfBirth: string | undefined;
+  date: string | undefined;
+  month: string | undefined;
+  year: string | undefined;
   email: string | undefined;
   password: string | undefined;
   firstName: string | undefined;
@@ -24,7 +26,9 @@ interface State {
 
 interface User {
   country: string;
-  dateOfBirth: string;
+  date: string;
+  month: string;
+  year: string;
   email: string;
   password: string;
   firstName: string;
@@ -51,7 +55,9 @@ class Register extends Component<Props, State> {
   state = {
     userData: {
       country: "",
-      dateOfBirth: "",
+      date: "",
+      month: "",
+      year: "",
       email: "",
       password: "",
       firstName: "",
@@ -62,10 +68,10 @@ class Register extends Component<Props, State> {
   componentDidUpdate(): void {
     const id = new Date().valueOf();
     const user = { ...this.state.userData, id };
-    if (Object.values(user).every(el => el !== "")) {
+    if (!Object.values(user).includes("")) {
       this.props.registerUser(user);
+      this.props.history.push("/login");
     }
-    this.props.history.push("/login");
   }
 
   handleSetUserDataToTheState = (data: Data, type: string) => {
@@ -76,7 +82,9 @@ class Register extends Component<Props, State> {
           userData: {
             ...this.state.userData,
             country: data.country,
-            dateOfBirth: `${data.date} ${data.month} ${data.year}`
+            date: data.date,
+            month: data.month,
+            year: data.year
           }
         };
       });

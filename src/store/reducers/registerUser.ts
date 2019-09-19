@@ -6,7 +6,9 @@ interface Data {
   payload: {
     id: number;
     country: string;
-    dateOfBirth: string;
+    date: string;
+    month: string;
+    year: string;
     email: string;
     password: string;
     firstName: string;
@@ -25,7 +27,7 @@ export const registerUser = (state = initialState, action: Data) => {
       email: action.payload.email,
       password: action.payload.password,
       country: action.payload.country,
-      birthDate: action.payload.dateOfBirth
+      birthDate: `${action.payload.date} ${action.payload.month} ${action.payload.year}`
     };
   } else {
     return state;

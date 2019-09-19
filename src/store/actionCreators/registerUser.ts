@@ -2,7 +2,9 @@ import { REGISTER_USER } from "../actionTypes";
 
 interface User {
   country: string;
-  dateOfBirth: string;
+  date: string;
+  month: string;
+  year: string;
   email: string;
   password: string;
   firstName: string;

@@ -55,7 +55,7 @@ export const MainInfo: React.FC<Props> = props => {
       userInfo.year = value;
     }
 
-    if (Object.values(userInfo).every(el => el !== "")) {
+    if (!Object.values(userInfo).includes("")) {
       setState({
         country: userInfo.country,
         date: userInfo.date,
@@ -68,7 +68,7 @@ export const MainInfo: React.FC<Props> = props => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    if (Object.values(state).every(el => el !== "")) {
+    if (!Object.values(state).includes("")) {
       props.submitData(
         {
           country: state.country,
