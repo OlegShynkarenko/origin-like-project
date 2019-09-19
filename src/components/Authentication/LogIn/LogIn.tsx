@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 import { NavLink } from "react-router-dom";
 
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
-import { Input } from "../../shared/Input/Input";
+import { Input, InputEvent } from "../../shared/Input/Input";
 import {
   emailValidator,
   passwordValidator
@@ -25,38 +25,40 @@ const ResetLink = styled.div`
   cursor: pointer;
 `;
 
+const FiledTypes = {
+  email: "email",
+  password: "password"
+};
+
 class LogIn extends Component<Props, State> {
+  noErrorsState = {
+    isError: false,
+    emailErrorMessage: "",
+    passwordErrorMessage: ""
+  };
+
   state = {
     authType: "Login",
     inputData: {
       passwordField: "",
       emailField: ""
     },
-    isError: false,
-    emailErrorMessage: "",
-    passwordErrorMessage: ""
+    ...this.noErrorsState
   };
 
-  handleChange = (event: any) => {
-    const inputValue = event.target.value;
-    const inputType = event.target.type;
-    if (inputType === "email") {
-      this.setState({
-        ...this.state,
-        inputData: { ...this.state.inputData, emailField: inputValue },
-        isError: false,
-        emailErrorMessage: "",
-        passwordErrorMessage: ""
-      });
-    } else if (inputType === "password") {
-      this.setState({
-        ...this.state,
-        inputData: { ...this.state.inputData, passwordField: inputValue },
-        isError: false,
-        emailErrorMessage: "",
-        passwordErrorMessage: ""
-      });
-    }
+  mapTypeToStateField = {
+    [FiledTypes.email]: "emailField",
+    [FiledTypes.password]: "passwordField"
+  };
+
+  handleChange = (event: InputEvent) => {
+    const value = event.currentTarget.value;
+    const field = this.mapTypeToStateField[event.currentTarget.type];
+
+    this.setState({
+      inputData: { ...this.state.inputData, [field]: value },
+      ...this.noErrorsState
+    });
   };
 
   handleSubmit = (event: FormEvent) => {
