@@ -17,3 +17,12 @@ export const emailValidator = (email: string) => {
     ? { isValid: true }
     : { isValid: false, message: "Email address is invalid" };
 };
+
+export const textValidator = (text: string) => {
+  return validator.isAlpha(text, "en-US") && !validator.isEmpty(text)
+    ? { isValid: true }
+    : {
+        isValid: false,
+        message: "Name should be text, no empty field allowed"
+      };
+};

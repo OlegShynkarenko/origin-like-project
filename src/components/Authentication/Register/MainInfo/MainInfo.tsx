@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import styled from "styled-components";
 import { History } from "history";
 import { match } from "react-router-dom";
@@ -9,27 +9,20 @@ import { ButtonComponent } from "simple-react-library_button-component/lib/Butto
 import { ErrorsWrapper, Error } from "../../sharedStyledComponents";
 
 interface Data {
-  country: string;
-  date: string;
-  month: string;
-  year: string;
-}
-
-interface DataV2 {
-  country: string;
-  date: string;
-  month: string;
-  year: string;
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
+  country?: string | undefined;
+  date?: string | undefined;
+  month?: string | undefined;
+  year?: string | undefined;
+  email?: string | undefined;
+  password?: string | undefined;
+  firstName?: string | undefined;
+  lastName?: string | undefined;
 }
 
 interface Props {
   history: History;
   match: match;
-  submitData: (data: Data | DataV2, type: string) => void;
+  submitData: (data: Data, type: string) => void;
 }
 
 const SelectGroup = styled.div`
@@ -73,7 +66,7 @@ export const MainInfo: React.FC<Props> = props => {
     }
   };
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     if (Object.values(state).every(el => el !== "")) {
       props.submitData(
@@ -83,7 +76,7 @@ export const MainInfo: React.FC<Props> = props => {
           month: state.month,
           year: state.year
         },
-        "main"
+        "step_1"
       );
       props.history.push(`${props.match.path}/additional-info`);
     } else {

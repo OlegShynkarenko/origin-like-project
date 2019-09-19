@@ -1,9 +1,26 @@
 import React, { Component } from "react";
 import { Route, Switch, RouteComponentProps } from "react-router-dom";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
 
 import { AuthAligner, AuthWrapper } from "../sharedStyledComponents";
 import { AdditionalInfo } from "./AdditionalInfo/AdditionalInfo";
 import { MainInfo } from "./MainInfo/MainInfo";
+import { registerUser } from "../../../store/actionCreators/registerUser";
+import { History } from "history";
+
+interface UserState {
+  country: string | undefined;
+  dateOfBirth: string | undefined;
+  email: string | undefined;
+  password: string | undefined;
+  firstName: string | undefined;
+  lastName: string | undefined;
+}
+
+interface State {
+  userData: UserState;
+}
 
 interface User {
   country: string;
@@ -14,29 +31,23 @@ interface User {
   lastName: string;
 }
 
-interface State {
-  userData: User;
+interface Props extends RouteComponentProps {
+  registerUser: (user: User) => void;
+  history: History;
 }
 
 interface Data {
-  country: string;
-  date: string;
-  month: string;
-  year: string;
+  country?: string | undefined;
+  date?: string | undefined;
+  month?: string | undefined;
+  year?: string | undefined;
+  email?: string | undefined;
+  password?: string | undefined;
+  firstName?: string | undefined;
+  lastName?: string | undefined;
 }
 
-interface DataV2 {
-  country: string;
-  date: string;
-  month: string;
-  year: string;
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-}
-
-export class Register extends Component<RouteComponentProps, State> {
+class Register extends Component<Props, State> {
   state = {
     userData: {
       country: "",
@@ -48,9 +59,17 @@ export class Register extends Component<RouteComponentProps, State> {
     }
   };
 
-  handleSetUserDataToTheState = (data: Data | DataV2, type: string) => {
-    console.log(data);
-    if (type === "main") {
+  componentDidUpdate(): void {
+    const id = new Date().valueOf();
+    const user = { ...this.state.userData, id };
+    if (Object.values(user).every(el => el !== "")) {
+      this.props.registerUser(user);
+    }
+    this.props.history.push("/login");
+  }
+
+  handleSetUserDataToTheState = (data: Data, type: string) => {
+    if (type === "step_1") {
       this.setState(() => {
         return {
           ...this.state,
@@ -61,12 +80,23 @@ export class Register extends Component<RouteComponentProps, State> {
           }
         };
       });
-    } else if (type === "additional") {
+    } else if (type === "step_2") {
+      this.setState(() => {
+        return {
+          ...this.state,
+          userData: {
+            ...this.state.userData,
+            email: data.email,
+            password: data.password,
+            firstName: data.firstName,
+            lastName: data.lastName
+          }
+        };
+      });
     }
   };
 
   render() {
-    console.log("REGISTER STATE", this.state);
     return (
       <AuthAligner>
         <AuthWrapper>
@@ -84,7 +114,12 @@ export class Register extends Component<RouteComponentProps, State> {
             <Route
               exact
               path="/register/additional-info"
-              component={AdditionalInfo}
+              render={props => (
+                <AdditionalInfo
+                  {...props}
+                  submitData={this.handleSetUserDataToTheState}
+                />
+              )}
             />
           </Switch>
         </AuthWrapper>
@@ -92,3 +127,15 @@ export class Register extends Component<RouteComponentProps, State> {
     );
   }
 }
+
+function mapDispatchToProps(dispatch: Dispatch) {
+  return {
+    registerUser: (user: User) => dispatch(registerUser(user))
+  };
+}
+
+const registerComponent = connect(
+  null,
+  mapDispatchToProps
+)(Register);
+export default registerComponent;

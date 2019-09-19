@@ -16,14 +16,21 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
   type: string;
   placeholder: string;
   handleChange: (event: any) => void;
+  id?: string;
 }
 
-export const Input: React.FC<Props> = ({ type, placeholder, handleChange }) => {
+export const Input: React.FC<Props> = ({
+  type,
+  placeholder,
+  handleChange,
+  id
+}) => {
   return (
     <StyledInput
       type={type}
       onChange={handleChange}
       placeholder={placeholder}
+      id={id}
     />
   );
 };

@@ -1,4 +1,4 @@
-import { SAVE_USER } from "../actionTypes";
+import { LOGIN_USER } from "../actionTypes";
 
 interface authObject {
   id: number;
@@ -7,9 +7,8 @@ interface authObject {
 }
 
 export const logInUser = (auth: authObject) => {
-  console.log("ActionCreator has been called");
   return {
-    type: SAVE_USER,
+    type: LOGIN_USER,
     payload: auth
   };
 };

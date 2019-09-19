@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import LogIn from "../components/Authentication/LogIn/LogIn";
 import { ResetPassword } from "../components/Authentication/ResetPassword/ResetPassword";
 import { Main } from "../components/Main/Main";
-import { Register } from "../components/Authentication/Register/Register";
+import Register from "../components/Authentication/Register/Register";
 
 const App: React.FC = () => {
   return (
