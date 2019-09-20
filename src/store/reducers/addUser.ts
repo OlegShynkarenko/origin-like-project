@@ -1,19 +1,12 @@
+import { UserAction, SAVE_USER, SOME_ACTION } from "../types/user";
+
 const initialState = {
   auth: {}
 };
 
-interface Data {
-  payload: {
-    id: number;
-    email: string;
-    password: string;
-  };
-  type: string;
-}
-
-export const userLogIn = (state = initialState, action: Data) => {
+export const userLogIn = (state = initialState, action: UserAction) => {
   switch (action.type) {
-    case "SAVE_USER":
+    case SAVE_USER:
       return {
         ...state,
         auth: {
@@ -22,7 +15,7 @@ export const userLogIn = (state = initialState, action: Data) => {
           password: action.payload.password
         }
       };
-    case "SOME_ACTION":
+    case SOME_ACTION:
       return "something";
     default:
       return state;

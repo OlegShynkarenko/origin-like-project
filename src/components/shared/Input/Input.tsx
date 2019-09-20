@@ -12,10 +12,12 @@ export const StyledInput = styled.input`
   box-sizing: border-box;
 `;
 
+export type InputEvent = React.FormEvent<HTMLInputElement>;
+
 interface Props extends React.HTMLProps<HTMLInputElement> {
   type: string;
   placeholder: string;
-  handleChange: (event: any) => void;
+  handleChange: (event: InputEvent) => void;
 }
 
 export const Input: React.FC<Props> = ({ type, placeholder, handleChange }) => {
