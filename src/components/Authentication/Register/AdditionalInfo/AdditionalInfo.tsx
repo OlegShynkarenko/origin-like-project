@@ -1,6 +1,7 @@
-import React, { useState, FormEvent } from "react";
+import React, { FormEvent, Component } from "react";
 import styled from "styled-components";
 import { History } from "history";
+import Recaptcha from "reaptcha";
 
 import {
   Error,
@@ -39,8 +40,8 @@ interface State {
   isError: boolean;
   emailErrorMessage: string | undefined;
   passwordErrorMessage: string | undefined;
-  firstNameErrorMessage: string | undefined;
-  lastNameErrorMessage: string | undefined;
+  textFieldErrorMessage: string | undefined;
+  verified: boolean;
 }
 
 const Heading = styled.h4`
@@ -52,8 +53,8 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const AdditionalInfo: React.FC<Props> = props => {
-  const [state, setState] = useState<State>({
+export class AdditionalInfo extends Component<Props, State> {
+  state = {
     emailField: "",
     passwordField: "",
     firstName: "",
@@ -61,126 +62,146 @@ export const AdditionalInfo: React.FC<Props> = props => {
     isError: false,
     emailErrorMessage: "",
     passwordErrorMessage: "",
-    firstNameErrorMessage: "",
-    lastNameErrorMessage: ""
-  });
-
-  const onBackButtonClick = () => {
-    props.history.push("/register");
+    textFieldErrorMessage: "",
+    verified: false
   };
 
-  const handleChange = (event: any) => {
+  onBackButtonClick = () => {
+    this.props.history.push("/register");
+  };
+
+  handleChange = (event: any) => {
     const inputValue = event.target.value;
     const inputType = event.target.type;
     const typeById = event.target.id;
 
     if (inputType === "email") {
-      setState({
-        ...state,
+      this.setState({
+        ...this.state,
         emailField: inputValue
       });
     } else if (inputType === "password") {
-      setState({
-        ...state,
+      this.setState({
+        ...this.state,
         passwordField: inputValue
       });
     } else if (typeById === "firstName") {
-      setState({
-        ...state,
+      this.setState({
+        ...this.state,
         firstName: inputValue
       });
     } else if (typeById === "lastName") {
-      setState({
-        ...state,
+      this.setState({
+        ...this.state,
         lastName: inputValue
       });
     }
   };
 
-  const handleSubmit = (event: FormEvent) => {
+  handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    const { emailField, passwordField, firstName, lastName } = state;
+    const { emailField, passwordField, firstName, lastName } = this.state;
 
     const emailValidation = emailValidator(emailField);
     const passwordValidation = passwordValidator(passwordField);
     const firstNameValidation = textValidator(firstName);
     const lastNameValidation = textValidator(lastName);
 
-    if (emailValidation.isValid && passwordValidation.isValid) {
-      props.submitData(
+    if (
+      emailValidation.isValid &&
+      passwordValidation.isValid &&
+      this.state.verified
+    ) {
+      this.props.submitData(
         {
-          email: state.emailField,
-          password: state.passwordField,
-          firstName: state.firstName,
-          lastName: state.lastName
+          email: this.state.emailField,
+          password: this.state.passwordField,
+          firstName: this.state.firstName,
+          lastName: this.state.lastName
         },
         "step_2"
       );
     } else {
-      setState({
-        ...state,
+      this.setState({
+        ...this.state,
         isError: true,
         emailErrorMessage: emailValidation.message,
         passwordErrorMessage: passwordValidation.message,
-        firstNameErrorMessage: firstNameValidation.message,
-        lastNameErrorMessage: lastNameValidation.message
+        textFieldErrorMessage: `${firstNameValidation.message ||
+          lastNameValidation.message}`
       });
     }
   };
 
-  return (
-    <>
-      <Wrapper>
-        <h3>Create your account</h3>
-        <ButtonComponent onClick={onBackButtonClick} type="button">
-          Back
-        </ButtonComponent>
-      </Wrapper>
-      <form noValidate onSubmit={handleSubmit}>
-        <InputWrapper>
-          <Input
-            type="email"
-            placeholder="Email Address"
-            handleChange={handleChange}
-          />
-          <Input
-            type="password"
-            placeholder="Password"
-            handleChange={handleChange}
-          />
-        </InputWrapper>
-        <ErrorsWrapper>
-          <Error>{state.emailErrorMessage}</Error>
-          <Error>{state.passwordErrorMessage}</Error>
-        </ErrorsWrapper>
-        <InputWrapper>
-          <Heading>People can find me by searching ...</Heading>
-          <Input
-            type="text"
-            id="firstName"
-            placeholder="First Name"
-            handleChange={handleChange}
-          />
-          <Input
-            type="text"
-            id="lastName"
-            placeholder="Last Name"
-            handleChange={handleChange}
-          />
-        </InputWrapper>
-        <ErrorsWrapper>
-          <Error>{state.firstNameErrorMessage}</Error>
-          <Error>{state.lastNameErrorMessage}</Error>
-        </ErrorsWrapper>
-        <ButtonComponent
-          type="submit"
-          height={"41px"}
-          appearance="warning"
-          width="100%"
-        >
-          Complete registration
-        </ButtonComponent>
-      </form>
-    </>
-  );
-};
+  onVerify = (response: string) => {
+    if (response !== "") {
+      console.log(this.state);
+      this.setState({ ...this.state, verified: true });
+    }
+  };
+
+  render() {
+    console.log("render", this.state);
+    return (
+      <>
+        <Wrapper>
+          <h3>Create your account</h3>
+          <ButtonComponent onClick={this.onBackButtonClick} type="button">
+            Back
+          </ButtonComponent>
+        </Wrapper>
+        <form noValidate onSubmit={this.handleSubmit}>
+          <InputWrapper>
+            <Input
+              type="email"
+              placeholder="Email Address"
+              handleChange={this.handleChange}
+            />
+            <Input
+              type="password"
+              placeholder="Password"
+              handleChange={this.handleChange}
+            />
+          </InputWrapper>
+          <ErrorsWrapper>
+            <Error>{this.state.emailErrorMessage}</Error>
+            <Error>{this.state.passwordErrorMessage}</Error>
+          </ErrorsWrapper>
+          <InputWrapper>
+            <Heading>People can find me by searching ...</Heading>
+            <Input
+              type="text"
+              id="firstName"
+              placeholder="First Name"
+              handleChange={this.handleChange}
+            />
+            <Input
+              type="text"
+              id="lastName"
+              placeholder="Last Name"
+              handleChange={this.handleChange}
+            />
+          </InputWrapper>
+          <ErrorsWrapper>
+            <Error>{this.state.textFieldErrorMessage}</Error>
+          </ErrorsWrapper>
+          <InputWrapper>
+            <Recaptcha
+              sitekey="6LcaWbkUAAAAALyJNkY6AshzTP1TKeGs8BLMJO9k"
+              onVerify={this.onVerify}
+              badge="inline"
+            />
+          </InputWrapper>
+          <ButtonComponent
+            type="submit"
+            height={"41px"}
+            appearance="warning"
+            width="100%"
+          >
+            Complete registration
+          </ButtonComponent>
+        </form>
+      </>
+    );
+  }
+}

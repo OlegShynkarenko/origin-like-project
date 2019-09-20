@@ -24,6 +24,6 @@ export const textValidator = (text: string | undefined) => {
     ? { isValid: true }
     : {
         isValid: false,
-        message: "Name should be text, no empty field allowed"
+        message: "Name should be a text, no empty field allowed"
       };
 };

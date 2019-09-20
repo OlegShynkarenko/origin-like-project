@@ -46,13 +46,13 @@ export const MainInfo: React.FC<Props> = props => {
 
   const handleSetDataToTheState = (type: string, value: string) => {
     if (type === "country") {
-      setState({ ...state, country: value });
+      setState({ ...state, country: value, isError: false });
     } else if (type === "date") {
-      setState({ ...state, date: value });
+      setState({ ...state, date: value, isError: false });
     } else if (type === "month") {
-      setState({ ...state, month: value });
+      setState({ ...state, month: value, isError: false });
     } else if (type === "year") {
-      setState({ ...state, year: value });
+      setState({ ...state, year: value, isError: false });
     }
   };
   console.log(state);
