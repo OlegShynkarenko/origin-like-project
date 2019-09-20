@@ -1,13 +1,15 @@
 import React, { FormEvent, ReactNode, useState } from "react";
 import { History } from "history";
 
-import { Input } from "../../shared/Input/Input";
+import { Input } from "../../shared/Input";
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
-import { emailValidator } from "../../../utils/validator/validator";
+import { isEmailValid } from "../../../utils/validator/validator";
 import {
   InputWrapper,
   AuthAligner,
-  AuthWrapper
+  AuthWrapper,
+  Error,
+  ErrorsWrapper
 } from "../sharedStyledComponents";
 
 interface Props {
@@ -15,32 +17,39 @@ interface Props {
   history: History;
 }
 
-export const ResetPassword: React.FC<Props> = props => {
-  const [state, setState] = useState({
-    authType: "reset password",
-    inputData: {
-      emailField: ""
-    }
-  });
+interface State {
+  authType: string;
+  emailField: string;
+  emailErrorMessage: string | undefined;
+}
 
-  const isValid = (inputValue: string) => {
-    return emailValidator(inputValue);
-  };
+export const ResetPassword: React.FC<Props> = props => {
+  const [state, setState] = useState<State>({
+    authType: "reset password",
+    emailField: "",
+    emailErrorMessage: ""
+  });
 
   const handleChange = (event: any) => {
     const inputValue = event.target.value;
     setState({
       authType: "reset password",
       ...state,
-      inputData: { ...state.inputData, emailField: inputValue }
+      emailField: inputValue,
+      emailErrorMessage: ""
     });
   };
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    if (isValid(state.inputData.emailField)) {
-      console.log("Submit reset password");
+    const emailValidation = isEmailValid(state.emailField);
+    if (emailValidation.isValid) {
       props.history.push("/login");
+    } else {
+      setState({
+        ...state,
+        emailErrorMessage: emailValidation.message
+      });
     }
   };
 
@@ -60,6 +69,9 @@ export const ResetPassword: React.FC<Props> = props => {
               placeholder={"Type your email example@example.com"}
             />
           </InputWrapper>
+          <ErrorsWrapper>
+            <Error>{state.emailErrorMessage}</Error>
+          </ErrorsWrapper>
           <ButtonComponent type="submit" appearance="warning" width="100%">
             Send
           </ButtonComponent>

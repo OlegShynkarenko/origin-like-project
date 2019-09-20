@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware } from "redux";
 
 import logger from "redux-logger";
-import { userLogIn } from "./reducers/addUser";
+import { logInUser } from "./reducers/logInUser";
 
 export const store = createStore(
   // @ts-ignore
-  userLogIn,
+  logInUser,
   applyMiddleware(logger)
 );

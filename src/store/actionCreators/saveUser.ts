@@ -1,15 +1,10 @@
-import { SAVE_USER } from "../actionTypes";
-
-interface authObject {
-  id: number;
-  email: string;
-  password: string;
-}
+import { LOGIN_USER } from "../actionTypes";
+import { authObject } from "../../components/Authentication/LogIn/interfaces";
 
 export const saveUser = (auth: authObject) => {
   console.log("ActionCreator has been called");
   return {
-    type: SAVE_USER,
+    type: LOGIN_USER,
     payload: auth
   };
 };

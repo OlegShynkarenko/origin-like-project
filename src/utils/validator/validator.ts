@@ -1,6 +1,6 @@
 import validator from "validator";
 
-export const passwordValidator = (pass: string) => {
+export const isPasswordValid = (pass: string) => {
   return validator.isLength(pass, { min: 8, max: 25 })
     ? { isValid: true }
     : {
@@ -9,7 +9,7 @@ export const passwordValidator = (pass: string) => {
       };
 };
 
-export const emailValidator = (email: string) => {
+export const isEmailValid = (email: string) => {
   return validator.isEmail(email, {
     allow_utf8_local_part: false,
     require_tld: true

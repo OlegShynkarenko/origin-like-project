@@ -5,10 +5,10 @@ import { Dispatch } from "redux";
 import { NavLink } from "react-router-dom";
 
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
-import { Input } from "../../shared/Input/Input";
+import { Input } from "../../shared/Input";
 import {
-  emailValidator,
-  passwordValidator
+  isEmailValid,
+  isPasswordValid
 } from "../../../utils/validator/validator";
 import { saveUser } from "../../../store/actionCreators/saveUser";
 import {
@@ -32,7 +32,6 @@ class LogIn extends Component<Props, State> {
       passwordField: "",
       emailField: ""
     },
-    isError: false,
     emailErrorMessage: "",
     passwordErrorMessage: ""
   };
@@ -44,7 +43,6 @@ class LogIn extends Component<Props, State> {
       this.setState({
         ...this.state,
         inputData: { ...this.state.inputData, emailField: inputValue },
-        isError: false,
         emailErrorMessage: "",
         passwordErrorMessage: ""
       });
@@ -52,7 +50,6 @@ class LogIn extends Component<Props, State> {
       this.setState({
         ...this.state,
         inputData: { ...this.state.inputData, passwordField: inputValue },
-        isError: false,
         emailErrorMessage: "",
         passwordErrorMessage: ""
       });
@@ -66,8 +63,8 @@ class LogIn extends Component<Props, State> {
       inputData: { emailField, passwordField }
     } = this.state;
 
-    const emailValidation = emailValidator(emailField);
-    const passwordValidation = passwordValidator(passwordField);
+    const emailValidation = isEmailValid(emailField);
+    const passwordValidation = isPasswordValid(passwordField);
 
     if (emailValidation.isValid && passwordValidation.isValid) {
       this.props.saveUser({
@@ -80,7 +77,6 @@ class LogIn extends Component<Props, State> {
       this.setState(() => {
         return {
           ...this.state,
-          isError: true,
           emailErrorMessage: emailValidation.message,
           passwordErrorMessage: passwordValidation.message
         };

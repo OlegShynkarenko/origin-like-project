@@ -21,7 +21,6 @@ export interface inputData {
 export interface State {
   authType: string;
   inputData: inputData;
-  isError: boolean;
   emailErrorMessage: string | undefined;
   passwordErrorMessage: string | undefined;
 }
