@@ -54,10 +54,10 @@ interface Data {
 class Register extends Component<Props, State> {
   state = {
     userData: {
-      country: "Country",
-      date: "Date",
-      month: "Month",
-      year: "Year",
+      country: "",
+      date: "",
+      month: "",
+      year: "",
       email: "",
       password: "",
       firstName: "",

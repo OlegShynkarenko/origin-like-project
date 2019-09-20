@@ -55,6 +55,7 @@ export const MainInfo: React.FC<Props> = props => {
       setState({ ...state, year: value });
     }
   };
+  console.log(state);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
