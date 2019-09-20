@@ -5,10 +5,10 @@ import { Dispatch } from "redux";
 import { NavLink } from "react-router-dom";
 
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
-import { Input, InputEvent } from "../../shared/Input/Input";
+import { Input } from "../../shared/Input";
 import {
-  emailValidator,
-  passwordValidator
+  isEmailValid,
+  isPasswordValid
 } from "../../../utils/validator/validator";
 import { saveUser } from "../../../store/actionCreators/saveUser";
 import {
@@ -38,11 +38,8 @@ class LogIn extends Component<Props, State> {
   };
 
   state = {
-    authType: "Login",
-    inputData: {
-      passwordField: "",
-      emailField: ""
-    },
+    passwordField: "",
+    emailField: "",
     ...this.noErrorsState
   };
 
@@ -51,12 +48,12 @@ class LogIn extends Component<Props, State> {
     [FiledTypes.password]: "passwordField"
   };
 
-  handleChange = (event: InputEvent) => {
-    const value = event.currentTarget.value;
-    const field = this.mapTypeToStateField[event.currentTarget.type];
+  handleChange = (value: string, type: string) => {
+    const field = this.mapTypeToStateField[type];
 
     this.setState({
-      inputData: { ...this.state.inputData, [field]: value },
+      ...this.state,
+      [field]: value,
       ...this.noErrorsState
     });
   };
@@ -64,12 +61,10 @@ class LogIn extends Component<Props, State> {
   handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     const id = new Date().valueOf();
-    const {
-      inputData: { emailField, passwordField }
-    } = this.state;
+    const { emailField, passwordField } = this.state;
 
-    const emailValidation = emailValidator(emailField);
-    const passwordValidation = passwordValidator(passwordField);
+    const emailValidation = isEmailValid(emailField);
+    const passwordValidation = isPasswordValid(passwordField);
 
     if (emailValidation.isValid && passwordValidation.isValid) {
       this.props.saveUser({
@@ -82,6 +77,7 @@ class LogIn extends Component<Props, State> {
       this.setState(() => {
         return {
           ...this.state,
+          ...this.noErrorsState,
           isError: true,
           emailErrorMessage: emailValidation.message,
           passwordErrorMessage: passwordValidation.message
@@ -100,11 +96,13 @@ class LogIn extends Component<Props, State> {
               <Input
                 handleChange={this.handleChange}
                 type="email"
+                role="email"
                 placeholder={"Type your email example@example.com"}
               />
               <Input
                 handleChange={this.handleChange}
                 type="password"
+                role="password"
                 placeholder={"Type your password"}
               />
             </InputWrapper>

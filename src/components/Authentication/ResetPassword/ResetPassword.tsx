@@ -30,12 +30,11 @@ export const ResetPassword: React.FC<Props> = props => {
     emailErrorMessage: ""
   });
 
-  const handleChange = (event: any) => {
-    const inputValue = event.target.value;
+  const handleChange = (value: string) => {
+    console.log(value);
     setState({
-      authType: "reset password",
       ...state,
-      emailField: inputValue,
+      emailField: value,
       emailErrorMessage: ""
     });
   };
@@ -66,6 +65,7 @@ export const ResetPassword: React.FC<Props> = props => {
             <Input
               handleChange={handleChange}
               type="email"
+              role="email"
               placeholder={"Type your email example@example.com"}
             />
           </InputWrapper>
