@@ -64,14 +64,21 @@ export const Select: React.FC<Props> = props => {
     }
   };
 
+  let defaultVal;
+  if (props.value !== "") {
+    defaultVal = props.value;
+  } else {
+    defaultVal = props.type.charAt(0).toUpperCase() + props.type.slice(1);
+  }
+
   return (
     <SelectComponent
       id={props.id}
       onChange={props.onChange}
-      defaultValue={props.value}
+      defaultValue={defaultVal}
     >
-      <option defaultValue={props.value} disabled>
-        {props.value}
+      <option defaultValue={defaultVal} disabled>
+        {defaultVal}
       </option>
       {renderOptions()}
     </SelectComponent>
