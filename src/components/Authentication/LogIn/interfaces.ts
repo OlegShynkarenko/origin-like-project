@@ -13,14 +13,9 @@ export interface Props {
   saveUser: (data: authObject) => void;
 }
 
-export interface inputData {
+export interface State {
   passwordField: string;
   emailField: string;
-}
-
-export interface State {
-  authType: string;
-  inputData: inputData;
   isError: boolean;
   emailErrorMessage: string | undefined;
   passwordErrorMessage: string | undefined;

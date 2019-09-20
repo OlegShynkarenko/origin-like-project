@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 
 import logger from "redux-logger";
-import { userLogin } from "./reducers/addUser";
 import { registerUser } from "./reducers/registerUser";
+import { logInUser } from "./reducers/logInUser";
 
 const rootReducer = combineReducers({
   login: userLogin,

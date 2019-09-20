@@ -5,10 +5,10 @@ import { Dispatch } from "redux";
 import { NavLink } from "react-router-dom";
 
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
-import { Input } from "../../shared/Input/Input";
+import { Input } from "../../shared/Input";
 import {
-  emailValidator,
-  passwordValidator
+  isEmailValid,
+  isPasswordValid
 } from "../../../utils/validator/validator";
 import { logInUser } from "../../../store/actionCreators/logInUser";
 import {
@@ -25,49 +25,46 @@ const ResetLink = styled.div`
   cursor: pointer;
 `;
 
+const FiledTypes = {
+  email: "email",
+  password: "password"
+};
+
 class LogIn extends Component<Props, State> {
-  state = {
-    authType: "Login",
-    inputData: {
-      passwordField: "",
-      emailField: ""
-    },
+  noErrorsState = {
     isError: false,
     emailErrorMessage: "",
     passwordErrorMessage: ""
   };
 
-  handleChange = (event: any) => {
-    const inputValue = event.target.value;
-    const inputType = event.target.type;
-    if (inputType === "email") {
-      this.setState({
-        ...this.state,
-        inputData: { ...this.state.inputData, emailField: inputValue },
-        isError: false,
-        emailErrorMessage: "",
-        passwordErrorMessage: ""
-      });
-    } else if (inputType === "password") {
-      this.setState({
-        ...this.state,
-        inputData: { ...this.state.inputData, passwordField: inputValue },
-        isError: false,
-        emailErrorMessage: "",
-        passwordErrorMessage: ""
-      });
-    }
+  state = {
+    passwordField: "",
+    emailField: "",
+    ...this.noErrorsState
+  };
+
+  mapTypeToStateField = {
+    [FiledTypes.email]: "emailField",
+    [FiledTypes.password]: "passwordField"
+  };
+
+  handleChange = (value: string, type: string) => {
+    const field = this.mapTypeToStateField[type];
+
+    this.setState({
+      ...this.state,
+      [field]: value,
+      ...this.noErrorsState
+    });
   };
 
   handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     const id = new Date().valueOf();
-    const {
-      inputData: { emailField, passwordField }
-    } = this.state;
+    const { emailField, passwordField } = this.state;
 
-    const emailValidation = emailValidator(emailField);
-    const passwordValidation = passwordValidator(passwordField);
+    const emailValidation = isEmailValid(emailField);
+    const passwordValidation = isPasswordValid(passwordField);
 
     if (emailValidation.isValid && passwordValidation.isValid) {
       this.props.saveUser({
@@ -80,6 +77,7 @@ class LogIn extends Component<Props, State> {
       this.setState(() => {
         return {
           ...this.state,
+          ...this.noErrorsState,
           isError: true,
           emailErrorMessage: emailValidation.message,
           passwordErrorMessage: passwordValidation.message
@@ -98,11 +96,15 @@ class LogIn extends Component<Props, State> {
               <Input
                 handleChange={this.handleChange}
                 type="email"
+                role="email"
+                placeholder={"Type your email example@example.com"}
                 placeholder={"Email Address"}
               />
               <Input
                 handleChange={this.handleChange}
                 type="password"
+                role="password"
+                placeholder={"Type your password"}
                 placeholder={"Password"}
               />
             </InputWrapper>
