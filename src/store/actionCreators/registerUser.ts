@@ -1,18 +1,7 @@
-import { REGISTER_USER } from "../actionTypes";
+import { REGISTER_USER } from "../types/RegisterUser";
+import { RegisterUser, RegisterUserAction } from "../types/RegisterUser";
 
-interface User {
-  country: string;
-  date: string;
-  month: string;
-  year: string;
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-}
-
-export const registerUser = (user: User) => {
-  console.log("ActionCreator has been called");
+export const registerUser = (user: RegisterUser): RegisterUserAction => {
   return {
     type: REGISTER_USER,
     payload: user

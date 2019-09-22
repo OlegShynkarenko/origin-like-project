@@ -1,12 +1,7 @@
-import { LOGIN_USER } from "../actionTypes";
+import { LOGIN_USER } from "../types/user";
+import { User, LogInUserAction } from "../types/user";
 
-interface authObject {
-  id: number;
-  email: string;
-  password: string;
-}
-
-export const logInUser = (auth: authObject) => {
+export const logInUser = (auth: User): LogInUserAction => {
   return {
     type: LOGIN_USER,
     payload: auth

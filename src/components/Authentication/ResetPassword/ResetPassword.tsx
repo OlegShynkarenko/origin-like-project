@@ -31,7 +31,6 @@ export const ResetPassword: React.FC<Props> = props => {
   });
 
   const handleChange = (value: string) => {
-    console.log(value);
     setState({
       ...state,
       emailField: value,

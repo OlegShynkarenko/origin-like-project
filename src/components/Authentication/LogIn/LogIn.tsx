@@ -18,14 +18,14 @@ import {
   AuthAligner,
   AuthWrapper
 } from "../sharedStyledComponents";
-import { authObject, Props, State } from "./interfaces";
+import { authObject, Props, State } from "../types/logIn";
 
 const ResetLink = styled.div`
   margin-top: 10px;
   cursor: pointer;
 `;
 
-const FiledTypes = {
+const FieldTypes = {
   email: "email",
   password: "password"
 };
@@ -44,8 +44,8 @@ class LogIn extends Component<Props, State> {
   };
 
   mapTypeToStateField = {
-    [FiledTypes.email]: "emailField",
-    [FiledTypes.password]: "passwordField"
+    [FieldTypes.email]: "emailField",
+    [FieldTypes.password]: "passwordField"
   };
 
   handleChange = (value: string, type: string) => {
@@ -97,14 +97,12 @@ class LogIn extends Component<Props, State> {
                 handleChange={this.handleChange}
                 type="email"
                 role="email"
-                placeholder={"Type your email example@example.com"}
                 placeholder={"Email Address"}
               />
               <Input
                 handleChange={this.handleChange}
                 type="password"
                 role="password"
-                placeholder={"Type your password"}
                 placeholder={"Password"}
               />
             </InputWrapper>

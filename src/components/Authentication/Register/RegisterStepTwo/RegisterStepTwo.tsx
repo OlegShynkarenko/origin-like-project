@@ -2,18 +2,19 @@ import React, { FormEvent, Component } from "react";
 import styled from "styled-components";
 import { History } from "history";
 import Recaptcha from "reaptcha";
+import { Data } from "../../types/register";
 
 import {
   Error,
   ErrorsWrapper,
   InputWrapper
 } from "../../sharedStyledComponents";
-import { Input } from "../../../shared/Input/Input";
+import { Input } from "../../../shared/Input";
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
 import {
-  emailValidator,
-  passwordValidator,
-  textValidator
+  isEmailValid,
+  isPasswordValid,
+  isTextValid
 } from "../../../../utils/validator/validator";
 
 interface Props {
@@ -21,26 +22,15 @@ interface Props {
   submitData: (data: Data, type: string) => void;
 }
 
-interface Data {
-  country?: string;
-  date?: string;
-  month?: string;
-  year?: string;
-  email?: string;
-  password?: string;
-  firstName?: string;
-  lastName?: string;
-}
-
 interface State {
-  emailField?: string;
-  passwordField?: string;
-  firstName?: string;
-  lastName?: string;
+  emailField: string;
+  passwordField: string;
+  firstName: string;
+  lastName: string;
   isError: boolean;
   emailErrorMessage: string | undefined;
   passwordErrorMessage: string | undefined;
-  textFieldErrorMessage: string | undefined;
+  textFieldErrorMessage: string;
   verified: boolean;
 }
 
@@ -53,59 +43,59 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-export class AdditionalInfo extends Component<Props, State> {
+const FieldTypes = {
+  email: "email",
+  password: "password",
+  firstName: "firstName",
+  lastName: "lastName"
+};
+
+export class RegisterStepTwo extends Component<Props, State> {
+  noErrorsState = {
+    isError: false,
+    emailErrorMessage: "",
+    passwordErrorMessage: "",
+    textFieldErrorMessage: ""
+  };
+
   state = {
     emailField: "",
     passwordField: "",
     firstName: "",
     lastName: "",
-    isError: false,
-    emailErrorMessage: "",
-    passwordErrorMessage: "",
-    textFieldErrorMessage: "",
-    verified: false
+    verified: false,
+    ...this.noErrorsState
   };
 
   onBackButtonClick = () => {
     this.props.history.push("/register");
   };
 
-  handleChange = (event: any) => {
-    const inputValue = event.target.value;
-    const inputType = event.target.type;
-    const typeById = event.target.id;
+  mapTypeToStateField = {
+    [FieldTypes.email]: "emailField",
+    [FieldTypes.password]: "passwordField",
+    [FieldTypes.firstName]: "firstName",
+    [FieldTypes.lastName]: "lastName"
+  };
 
-    if (inputType === "email") {
-      this.setState({
-        ...this.state,
-        emailField: inputValue
-      });
-    } else if (inputType === "password") {
-      this.setState({
-        ...this.state,
-        passwordField: inputValue
-      });
-    } else if (typeById === "firstName") {
-      this.setState({
-        ...this.state,
-        firstName: inputValue
-      });
-    } else if (typeById === "lastName") {
-      this.setState({
-        ...this.state,
-        lastName: inputValue
-      });
-    }
+  handleChange = (value: string, type: string) => {
+    const field = this.mapTypeToStateField[type];
+
+    this.setState({
+      ...this.state,
+      [field]: value,
+      ...this.noErrorsState
+    });
   };
 
   handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     const { emailField, passwordField, firstName, lastName } = this.state;
 
-    const emailValidation = emailValidator(emailField);
-    const passwordValidation = passwordValidator(passwordField);
-    const firstNameValidation = textValidator(firstName);
-    const lastNameValidation = textValidator(lastName);
+    const emailValidation = isEmailValid(emailField);
+    const passwordValidation = isPasswordValid(passwordField);
+    const firstNameValidation = isTextValid(firstName);
+    const lastNameValidation = isTextValid(lastName);
 
     if (
       emailValidation.isValid &&
@@ -128,20 +118,19 @@ export class AdditionalInfo extends Component<Props, State> {
         emailErrorMessage: emailValidation.message,
         passwordErrorMessage: passwordValidation.message,
         textFieldErrorMessage: `${firstNameValidation.message ||
-          lastNameValidation.message}`
+          lastNameValidation.message ||
+          ""}`
       });
     }
   };
 
   onVerify = (response: string) => {
     if (response !== "") {
-      console.log(this.state);
       this.setState({ ...this.state, verified: true });
     }
   };
 
   render() {
-    console.log("render", this.state);
     return (
       <>
         <Wrapper>
@@ -154,11 +143,13 @@ export class AdditionalInfo extends Component<Props, State> {
           <InputWrapper>
             <Input
               type="email"
+              role="email"
               placeholder="Email Address"
               handleChange={this.handleChange}
             />
             <Input
               type="password"
+              role="password"
               placeholder="Password"
               handleChange={this.handleChange}
             />
@@ -171,13 +162,13 @@ export class AdditionalInfo extends Component<Props, State> {
             <Heading>People can find me by searching ...</Heading>
             <Input
               type="text"
-              id="firstName"
+              role="firstName"
               placeholder="First Name"
               handleChange={this.handleChange}
             />
             <Input
               type="text"
-              id="lastName"
+              role="lastName"
               placeholder="Last Name"
               handleChange={this.handleChange}
             />

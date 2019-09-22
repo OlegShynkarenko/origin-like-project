@@ -1,4 +1,4 @@
-export const optionCountry = [
+export const countryOptions = [
   "Australia",
   "Brazil",
   "China",
@@ -9,7 +9,7 @@ export const optionCountry = [
   "United States"
 ];
 
-export const dateOption = [
+export const dateOptions = [
   1,
   2,
   3,
@@ -43,7 +43,7 @@ export const dateOption = [
   31
 ];
 
-export const monthOption = [
+export const monthOptions = [
   "January",
   "February",
   "March",
@@ -57,7 +57,7 @@ export const monthOption = [
   "November",
   "December"
 ];
-export const yearOption = [
+export const yearOptions = [
   1975,
   1976,
   1977,

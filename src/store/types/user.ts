@@ -1,5 +1,4 @@
-export const SAVE_USER = "SAVE_USER";
-export const SOME_ACTION = "SOME_ACTION";
+export const LOGIN_USER = "LOGIN_USER";
 
 export interface User {
   id: number;
@@ -7,13 +6,9 @@ export interface User {
   password: string;
 }
 
-export interface SaveUserAction {
-  type: typeof SAVE_USER;
+export interface LogInUserAction {
+  type: typeof LOGIN_USER;
   payload: User;
 }
 
-export interface SomeAction {
-  type: typeof SOME_ACTION;
-}
-
-export type UserAction = SaveUserAction | SomeAction;
+export type UserAction = LogInUserAction;

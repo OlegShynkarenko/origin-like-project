@@ -4,43 +4,13 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 
 import { AuthAligner, AuthWrapper } from "../sharedStyledComponents";
-import { AdditionalInfo } from "./AdditionalInfo/AdditionalInfo";
-import { MainInfo } from "./MainInfo/MainInfo";
+import { RegisterStepTwo } from "./RegisterStepTwo/RegisterStepTwo";
+import { RegisterStepOne } from "./RegisterStepOne/RegisterStepOne";
 import { registerUser } from "../../../store/actionCreators/registerUser";
 import { History } from "history";
-
-interface UserState {
-  country: string | undefined;
-  date: string | undefined;
-  month: string | undefined;
-  year: string | undefined;
-  email: string | undefined;
-  password: string | undefined;
-  firstName: string | undefined;
-  lastName: string | undefined;
-}
+import { Data, User } from "../types/register";
 
 interface State {
-  userData: UserState;
-}
-
-interface User {
-  country: string;
-  date: string;
-  month: string;
-  year: string;
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-}
-
-interface Props extends RouteComponentProps {
-  registerUser: (user: User) => void;
-  history: History;
-}
-
-interface Data {
   country?: string;
   date?: string;
   month?: string;
@@ -51,23 +21,26 @@ interface Data {
   lastName?: string;
 }
 
+interface Props extends RouteComponentProps {
+  registerUser: (user: User) => void;
+  history: History;
+}
+
 class Register extends Component<Props, State> {
   state = {
-    userData: {
-      country: "",
-      date: "",
-      month: "",
-      year: "",
-      email: "",
-      password: "",
-      firstName: "",
-      lastName: ""
-    }
+    country: "",
+    date: "",
+    month: "",
+    year: "",
+    email: "",
+    password: "",
+    firstName: "",
+    lastName: ""
   };
 
   componentDidUpdate(): void {
     const id = new Date().valueOf();
-    const user = { ...this.state.userData, id };
+    const user = { ...this.state, id };
     if (!Object.values(user).includes("")) {
       this.props.registerUser(user);
       this.props.history.push("/login");
@@ -79,26 +52,20 @@ class Register extends Component<Props, State> {
       this.setState(() => {
         return {
           ...this.state,
-          userData: {
-            ...this.state.userData,
-            country: data.country,
-            date: data.date,
-            month: data.month,
-            year: data.year
-          }
+          country: data.country,
+          date: data.date,
+          month: data.month,
+          year: data.year
         };
       });
     } else if (type === "step_2") {
       this.setState(() => {
         return {
           ...this.state,
-          userData: {
-            ...this.state.userData,
-            email: data.email,
-            password: data.password,
-            firstName: data.firstName,
-            lastName: data.lastName
-          }
+          email: data.email,
+          password: data.password,
+          firstName: data.firstName,
+          lastName: data.lastName
         };
       });
     }
@@ -113,9 +80,9 @@ class Register extends Component<Props, State> {
               exact
               path="/register"
               render={props => (
-                <MainInfo
+                <RegisterStepOne
                   {...props}
-                  data={this.state.userData}
+                  data={this.state}
                   submitData={this.handleSetUserDataToTheState}
                 />
               )}
@@ -124,7 +91,7 @@ class Register extends Component<Props, State> {
               exact
               path="/register/additional-info"
               render={props => (
-                <AdditionalInfo
+                <RegisterStepTwo
                   {...props}
                   submitData={this.handleSetUserDataToTheState}
                 />

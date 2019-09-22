@@ -4,20 +4,10 @@ import { History } from "history";
 import { match } from "react-router-dom";
 
 import { InputWrapper } from "../../sharedStyledComponents";
-import { Select } from "../Select";
+import { Select } from "../../../shared/Select";
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
 import { ErrorsWrapper, Error } from "../../sharedStyledComponents";
-
-interface Data {
-  country?: string;
-  date?: string;
-  month?: string;
-  year?: string;
-  email?: string;
-  password?: string;
-  firstName?: string;
-  lastName?: string;
-}
+import { Data } from "../../types/register";
 
 interface Props {
   history: History;
@@ -35,7 +25,7 @@ const SelectGroup = styled.div`
   }
 `;
 
-export const MainInfo: React.FC<Props> = props => {
+export const RegisterStepOne: React.FC<Props> = props => {
   const [state, setState] = useState({
     country: props.data.country,
     date: props.data.date,
@@ -45,17 +35,8 @@ export const MainInfo: React.FC<Props> = props => {
   });
 
   const handleSetDataToTheState = (type: string, value: string) => {
-    if (type === "country") {
-      setState({ ...state, country: value, isError: false });
-    } else if (type === "date") {
-      setState({ ...state, date: value, isError: false });
-    } else if (type === "month") {
-      setState({ ...state, month: value, isError: false });
-    } else if (type === "year") {
-      setState({ ...state, year: value, isError: false });
-    }
+    setState({ ...state, [type]: value, isError: false });
   };
-  console.log(state);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -75,12 +56,6 @@ export const MainInfo: React.FC<Props> = props => {
     }
   };
 
-  const handleSelectChange = (event: any) => {
-    const selectedValue = event.target.value;
-    const selectedType = event.target.id;
-    handleSetDataToTheState(selectedType, selectedValue);
-  };
-
   const errorMessage = state.isError ? "You should choose all fields" : null;
 
   return (
@@ -90,32 +65,32 @@ export const MainInfo: React.FC<Props> = props => {
         <InputWrapper>
           <p>Country/Region</p>
           <Select
-            id="country"
+            role="country"
             value={props.data.country}
             type="country"
-            onChange={handleSelectChange}
+            change={handleSetDataToTheState}
           />
         </InputWrapper>
         <InputWrapper>
           <p>Date of birth</p>
           <SelectGroup>
             <Select
-              id="date"
+              role="date"
               value={props.data.date}
               type="date"
-              onChange={handleSelectChange}
+              change={handleSetDataToTheState}
             />
             <Select
-              id="month"
+              role="month"
               value={props.data.month}
               type="month"
-              onChange={handleSelectChange}
+              change={handleSetDataToTheState}
             />
             <Select
-              id="year"
+              role="year"
               value={props.data.year}
               type="year"
-              onChange={handleSelectChange}
+              change={handleSetDataToTheState}
             />
           </SelectGroup>
         </InputWrapper>

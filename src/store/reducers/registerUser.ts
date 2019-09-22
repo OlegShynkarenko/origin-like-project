@@ -1,19 +1,9 @@
-import { REGISTER_USER } from "../actionTypes";
+import { REGISTER_USER, RegisterUser } from "../types/RegisterUser";
 
 const initialState = {};
 
 interface Data {
-  payload: {
-    id: number;
-    country: string;
-    date: string;
-    month: string;
-    year: string;
-    email: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-  };
+  payload: RegisterUser;
   type: string;
 }
 
