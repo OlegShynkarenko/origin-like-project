@@ -97,7 +97,12 @@ class LogIn extends Component<Props, State> {
                 placeholder={"Password"}
               />
             </InputWrapper>
-            <ButtonComponent type="submit" appearance="warning" width="100%">
+            <ButtonComponent
+              type="submit"
+              appearance="warning"
+              width="100%"
+              height={"41px"}
+            >
               Log in
             </ButtonComponent>
           </form>

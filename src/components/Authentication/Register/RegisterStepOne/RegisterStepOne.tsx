@@ -50,7 +50,7 @@ export const RegisterStepOne: React.FC<Props> = props => {
         },
         "step_1"
       );
-      props.history.push(`${props.match.path}/additional-info`);
+      props.history.push(`${props.match.path}/step-2`);
     } else {
       setState({ ...state, isError: true });
     }

@@ -43,7 +43,7 @@ class Register extends Component<Props, State> {
     const user = { ...this.state, id };
     if (!Object.values(user).includes("")) {
       this.props.registerUser(user);
-      this.props.history.push("/login");
+      this.props.history.push("/auth/login");
     }
   }
 
@@ -72,13 +72,14 @@ class Register extends Component<Props, State> {
   };
 
   render() {
+    console.log(this.props);
     return (
       <AuthAligner>
         <AuthWrapper>
           <Switch>
             <Route
               exact
-              path="/register"
+              path={`${this.props.match.path}`}
               render={props => (
                 <RegisterStepOne
                   {...props}
@@ -89,7 +90,7 @@ class Register extends Component<Props, State> {
             />
             <Route
               exact
-              path="/register/additional-info"
+              path={`${this.props.match.path}/step-2`}
               render={props => (
                 <RegisterStepTwo
                   {...props}

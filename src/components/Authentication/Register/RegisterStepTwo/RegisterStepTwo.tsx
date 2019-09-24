@@ -61,7 +61,7 @@ export class RegisterStepTwo extends Component<Props, State> {
   };
 
   onBackButtonClick = () => {
-    this.props.history.push("/register");
+    this.props.history.push("/auth/register");
   };
 
   handleChange = (type: string, value: string) => {

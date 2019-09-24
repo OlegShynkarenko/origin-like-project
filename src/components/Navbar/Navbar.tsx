@@ -26,12 +26,12 @@ export const Navbar: React.FC = () => {
       </div>
       <div>
         <LinkWrapper>
-          <NavLink to={`/login`} activeStyle={{ color: "red" }}>
-            Log in
+          <NavLink to={`/auth/login`} activeStyle={{ color: "red" }}>
+            Log In
           </NavLink>
         </LinkWrapper>
         <LinkWrapper>
-          <NavLink to={`/register`} activeStyle={{ color: "red" }}>
+          <NavLink to={`/auth/register`} activeStyle={{ color: "red" }}>
             Register
           </NavLink>
         </LinkWrapper>

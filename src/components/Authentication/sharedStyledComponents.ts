@@ -25,5 +25,5 @@ export const AuthAligner = styled.div`
 export const AuthWrapper = styled.div`
   width: 400px;
   color: #000;
-  margin-top: 100px;
+  margin-top: 50px;
 `;
