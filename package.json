@@ -5,14 +5,20 @@
   "homepage": "https://olegshynkarenko.github.io/origin-like-project/",
   "dependencies": {
     "@atlaskit/css-reset": "^5.0.8",
+    "@types/react-redux": "^7.1.2",
+    "@types/redux-logger": "^3.0.7",
+    "@types/validator": "^10.11.3",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
     "redux": "^4.0.4",
+    "redux-logger": "^3.0.6",
+    "simple-react-library_button-component": "^1.0.5",
     "styled-components": "^4.3.2",
-    "typescript": "3.6.2"
+    "typescript": "3.6.2",
+    "validator": "^11.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
@@ -22,11 +28,11 @@
     "@types/react": "16.9.2",
     "@types/react-dom": "16.9.0",
     "@types/react-router-dom": "^4.3.5",
-    "@types/styled-components": "^4.1.18",
+    "@types/styled-components": "^4.1.19",
     "cz-conventional-changelog": "^3.0.2",
-    "eslint": "^6.2.2",
+    "eslint": "^6.3.0",
     "gh-pages": "^2.1.1",
-    "husky": "^3.0.4",
+    "husky": "^3.0.5",
     "lint-staged": "^9.2.5",
     "prettier": "1.18.2",
     "redux-devtools": "^3.5.0"
@@ -58,7 +64,6 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
