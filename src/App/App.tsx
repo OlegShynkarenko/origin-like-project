@@ -1,21 +1,23 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import LogIn from "../components/Authentication/LogIn/LogIn";
 import { ResetPassword } from "../components/Authentication/ResetPassword/ResetPassword";
 import { Main } from "../components/Main/Main";
 import Register from "../components/Authentication/Register/Register";
+import { Router } from "../router/Router";
+import { paths } from "../router/paths";
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <Switch>
-        <Route exact path="/login" component={LogIn} />
-        <Route path="/register" component={Register} />
-        <Route exact path="/reset-password" component={ResetPassword} />
-        <Route path="/" component={Main} />
+        <Route exact path={paths.login} component={LogIn} />
+        <Route path={paths.register} component={Register} />
+        <Route exact path={paths.resetPassword} component={ResetPassword} />
+        <Route path={paths.root} component={Main} />
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 };
 
