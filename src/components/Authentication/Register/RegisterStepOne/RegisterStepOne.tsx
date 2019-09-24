@@ -4,7 +4,7 @@ import { History } from "history";
 import { match } from "react-router-dom";
 
 import { InputWrapper } from "../../sharedStyledComponents";
-import { Select } from "../../../shared/Select";
+import { Select, selectTypes } from "../../../../shared/Select";
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
 import { ErrorsWrapper, Error } from "../../sharedStyledComponents";
 import { Data } from "../../types/register";
@@ -28,7 +28,7 @@ const SelectGroup = styled.div`
 export const RegisterStepOne: React.FC<Props> = props => {
   const [state, setState] = useState({
     country: props.data.country,
-    date: props.data.date,
+    day: props.data.day,
     month: props.data.month,
     year: props.data.year,
     isError: false
@@ -44,7 +44,7 @@ export const RegisterStepOne: React.FC<Props> = props => {
       props.submitData(
         {
           country: state.country,
-          date: state.date,
+          day: state.day,
           month: state.month,
           year: state.year
         },
@@ -65,9 +65,8 @@ export const RegisterStepOne: React.FC<Props> = props => {
         <InputWrapper>
           <p>Country/Region</p>
           <Select
-            role="country"
             value={props.data.country}
-            type="country"
+            type={selectTypes.country}
             change={handleSetDataToTheState}
           />
         </InputWrapper>
@@ -75,21 +74,18 @@ export const RegisterStepOne: React.FC<Props> = props => {
           <p>Date of birth</p>
           <SelectGroup>
             <Select
-              role="date"
-              value={props.data.date}
-              type="date"
+              value={props.data.day}
+              type={selectTypes.day}
               change={handleSetDataToTheState}
             />
             <Select
-              role="month"
               value={props.data.month}
-              type="month"
+              type={selectTypes.month}
               change={handleSetDataToTheState}
             />
             <Select
-              role="year"
               value={props.data.year}
-              type="year"
+              type={selectTypes.year}
               change={handleSetDataToTheState}
             />
           </SelectGroup>

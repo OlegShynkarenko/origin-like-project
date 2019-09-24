@@ -17,7 +17,7 @@ export const registerUser = (state = initialState, action: Data) => {
       email: action.payload.email,
       password: action.payload.password,
       country: action.payload.country,
-      birthDate: `${action.payload.date} ${action.payload.month} ${action.payload.year}`
+      birthDate: `${action.payload.day} ${action.payload.month} ${action.payload.year}`
     };
   } else {
     return state;

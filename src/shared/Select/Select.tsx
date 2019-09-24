@@ -5,7 +5,7 @@ import {
   dateOptions,
   monthOptions,
   yearOptions
-} from "../../Authentication/Register/selectOtions";
+} from "../../components/Authentication/Register/selectOtions";
 import styled from "styled-components";
 
 const SelectComponent = styled.select`
@@ -21,6 +21,13 @@ const SelectComponent = styled.select`
   }
 `;
 
+export const selectTypes = {
+  country: "country",
+  day: "day",
+  month: "month",
+  year: "year"
+};
+
 interface Props extends React.HTMLProps<HTMLSelectElement> {
   type: string;
   change: (type: string, value: string) => void;
@@ -29,7 +36,7 @@ interface Props extends React.HTMLProps<HTMLSelectElement> {
 
 const optionsTypes = {
   country: countryOptions,
-  date: dateOptions,
+  day: dateOptions,
   month: monthOptions,
   year: yearOptions
 };
@@ -83,7 +90,7 @@ export const Select: React.FC<Props> = props => {
 
   const handleChange = (event: React.FormEvent<HTMLSelectElement>) => {
     const selectedValue = event.currentTarget.value;
-    const selectedType = props.role;
+    const selectedType = props.type;
     if (selectedType != null) {
       props.change(selectedType, selectedValue);
     }
@@ -97,11 +104,7 @@ export const Select: React.FC<Props> = props => {
   }
 
   return (
-    <SelectComponent
-      role={props.role}
-      onChange={handleChange}
-      defaultValue={defaultVal}
-    >
+    <SelectComponent onChange={handleChange} defaultValue={defaultVal}>
       <option defaultValue={defaultVal} disabled>
         {defaultVal}
       </option>

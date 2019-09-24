@@ -3,7 +3,7 @@ export const REGISTER_USER = "REGISTER_USER";
 export interface RegisterUser {
   id: number;
   country: string;
-  date: string;
+  day: string;
   month: string;
   year: string;
   email: string;

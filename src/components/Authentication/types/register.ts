@@ -1,6 +1,6 @@
 export interface Data {
   country?: string;
-  date?: string;
+  day?: string;
   month?: string;
   year?: string;
   email?: string;
@@ -12,7 +12,7 @@ export interface Data {
 export interface User {
   id: number;
   country: string;
-  date: string;
+  day: string;
   month: string;
   year: string;
   email: string;

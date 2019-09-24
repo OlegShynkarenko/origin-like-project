@@ -9,13 +9,13 @@ import {
   ErrorsWrapper,
   InputWrapper
 } from "../../sharedStyledComponents";
-import { Input } from "../../../shared/Input";
+import { Input, inputTypes } from "../../../../shared/Input";
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
 import {
   isEmailValid,
   isPasswordValid,
   isTextValid
-} from "../../../../utils/validator/validator";
+} from "../../../../validator";
 
 interface Props {
   history: History;
@@ -43,13 +43,6 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-const FieldTypes = {
-  email: "email",
-  password: "password",
-  firstName: "firstName",
-  lastName: "lastName"
-};
-
 export class RegisterStepTwo extends Component<Props, State> {
   noErrorsState = {
     isError: false,
@@ -71,22 +64,29 @@ export class RegisterStepTwo extends Component<Props, State> {
     this.props.history.push("/register");
   };
 
-  mapTypeToStateField = {
-    [FieldTypes.email]: "emailField",
-    [FieldTypes.password]: "passwordField",
-    [FieldTypes.firstName]: "firstName",
-    [FieldTypes.lastName]: "lastName"
-  };
-
-  handleChange = (value: string, type: string) => {
-    const field = this.mapTypeToStateField[type];
-
+  handleChange = (type: string, value: string) => {
     this.setState({
       ...this.state,
-      [field]: value,
+      [type]: value,
       ...this.noErrorsState
     });
   };
+  handleEmailChange = this.handleChange.bind(
+    this,
+    inputTypes.fieldTypes.emailField
+  );
+  handlePasswordChange = this.handleChange.bind(
+    this,
+    inputTypes.fieldTypes.passwordField
+  );
+  handleFirstNameChange = this.handleChange.bind(
+    this,
+    inputTypes.fieldTypes.firstName
+  );
+  handleLastNameChange = this.handleChange.bind(
+    this,
+    inputTypes.fieldTypes.lastName
+  );
 
   handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -142,16 +142,14 @@ export class RegisterStepTwo extends Component<Props, State> {
         <form noValidate onSubmit={this.handleSubmit}>
           <InputWrapper>
             <Input
-              type="email"
-              role="email"
+              type={inputTypes.attributes.email}
               placeholder="Email Address"
-              handleChange={this.handleChange}
+              handleChange={this.handleEmailChange}
             />
             <Input
-              type="password"
-              role="password"
+              type={inputTypes.attributes.password}
               placeholder="Password"
-              handleChange={this.handleChange}
+              handleChange={this.handlePasswordChange}
             />
           </InputWrapper>
           <ErrorsWrapper>
@@ -161,16 +159,14 @@ export class RegisterStepTwo extends Component<Props, State> {
           <InputWrapper>
             <Heading>People can find me by searching ...</Heading>
             <Input
-              type="text"
-              role="firstName"
+              type={inputTypes.attributes.text}
               placeholder="First Name"
-              handleChange={this.handleChange}
+              handleChange={this.handleFirstNameChange}
             />
             <Input
-              type="text"
-              role="lastName"
+              type={inputTypes.attributes.text}
               placeholder="Last Name"
-              handleChange={this.handleChange}
+              handleChange={this.handleLastNameChange}
             />
           </InputWrapper>
           <ErrorsWrapper>

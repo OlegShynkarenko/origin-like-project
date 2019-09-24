@@ -1,9 +1,9 @@
 import React, { FormEvent, ReactNode, useState } from "react";
 import { History } from "history";
 
-import { Input } from "../../shared/Input";
+import { Input, inputTypes } from "../../../shared/Input";
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
-import { isEmailValid } from "../../../utils/validator/validator";
+import { isEmailValid } from "../../../validator";
 import {
   InputWrapper,
   AuthAligner,
@@ -63,8 +63,7 @@ export const ResetPassword: React.FC<Props> = props => {
           <InputWrapper>
             <Input
               handleChange={handleChange}
-              type="email"
-              role="email"
+              type={inputTypes.attributes.email}
               placeholder={"Type your email example@example.com"}
             />
           </InputWrapper>

@@ -21,24 +21,31 @@ export type InputEvent = React.FormEvent<HTMLInputElement>;
 interface Props extends React.HTMLProps<HTMLInputElement> {
   type: string;
   placeholder: string;
-  role: string;
-  handleChange: (type: string, value: string) => void;
+  handleChange: (value: string) => void;
 }
 
-export const Input: React.FC<Props> = ({
-  type,
-  placeholder,
-  handleChange,
-  role
-}) => {
+export const inputTypes = {
+  attributes: {
+    email: "email",
+    password: "password",
+    text: "text"
+  },
+  fieldTypes: {
+    emailField: "emailField",
+    passwordField: "passwordField",
+    firstName: "firstName",
+    lastName: "lastName"
+  }
+};
+
+export const Input: React.FC<Props> = ({ type, placeholder, handleChange }) => {
   const handleOnChange = (event: InputEvent) => {
     const value = event.currentTarget.value;
-    handleChange(value, role);
+    handleChange(value);
   };
 
   return (
     <StyledInput
-      role={role}
       type={type}
       onChange={handleOnChange}
       placeholder={placeholder}

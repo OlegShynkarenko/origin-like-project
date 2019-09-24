@@ -5,11 +5,8 @@ import { Dispatch } from "redux";
 import { NavLink } from "react-router-dom";
 
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
-import { Input } from "../../shared/Input";
-import {
-  isEmailValid,
-  isPasswordValid
-} from "../../../utils/validator/validator";
+import { Input, inputTypes } from "../../../shared/Input";
+import { isEmailValid, isPasswordValid } from "../../../validator";
 import { logInUser } from "../../../store/actionCreators/logInUser";
 import {
   InputWrapper,
@@ -25,11 +22,6 @@ const ResetLink = styled.div`
   cursor: pointer;
 `;
 
-const FieldTypes = {
-  email: "email",
-  password: "password"
-};
-
 class LogIn extends Component<Props, State> {
   noErrorsState = {
     isError: false,
@@ -43,20 +35,21 @@ class LogIn extends Component<Props, State> {
     ...this.noErrorsState
   };
 
-  mapTypeToStateField = {
-    [FieldTypes.email]: "emailField",
-    [FieldTypes.password]: "passwordField"
-  };
-
-  handleChange = (value: string, type: string) => {
-    const field = this.mapTypeToStateField[type];
-
+  handleChange = (type: string, value: string) => {
     this.setState({
       ...this.state,
-      [field]: value,
+      [type]: value,
       ...this.noErrorsState
     });
   };
+  handleEmailChange = this.handleChange.bind(
+    this,
+    inputTypes.fieldTypes.emailField
+  );
+  handlePasswordChange = this.handleChange.bind(
+    this,
+    inputTypes.fieldTypes.passwordField
+  );
 
   handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -94,15 +87,13 @@ class LogIn extends Component<Props, State> {
           <form onSubmit={this.handleSubmit} noValidate>
             <InputWrapper>
               <Input
-                handleChange={this.handleChange}
-                type="email"
-                role="email"
+                handleChange={this.handleEmailChange}
+                type={inputTypes.attributes.email}
                 placeholder={"Email Address"}
               />
               <Input
-                handleChange={this.handleChange}
-                type="password"
-                role="password"
+                handleChange={this.handlePasswordChange}
+                type={inputTypes.attributes.password}
                 placeholder={"Password"}
               />
             </InputWrapper>

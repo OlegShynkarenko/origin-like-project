@@ -29,7 +29,7 @@ interface Props extends RouteComponentProps {
 class Register extends Component<Props, State> {
   state = {
     country: "",
-    date: "",
+    day: "",
     month: "",
     year: "",
     email: "",
@@ -53,7 +53,7 @@ class Register extends Component<Props, State> {
         return {
           ...this.state,
           country: data.country,
-          date: data.date,
+          day: data.day,
           month: data.month,
           year: data.year
         };
