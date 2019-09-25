@@ -1,22 +1,17 @@
 import { ReactNode } from "react";
 import { History } from "history";
-
-export interface authObject {
-  id: number;
-  email: string;
-  password: string;
-}
+import { User } from "../../../store/types/user";
 
 export interface Props {
   children?: ReactNode;
   history: History;
-  saveUser: (data: authObject) => void;
+  saveUser: (data: User) => void;
 }
 
 export interface State {
-  passwordField: string;
-  emailField: string;
+  passwordField: string | null;
+  emailField: string | null;
   isError: boolean;
-  emailErrorMessage: string | undefined;
-  passwordErrorMessage: string | undefined;
+  emailErrorMessage: string | null;
+  passwordErrorMessage: string | null;
 }

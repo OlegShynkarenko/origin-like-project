@@ -2,8 +2,8 @@ export const LOGIN_USER = "LOGIN_USER";
 
 export interface User {
   id: number;
-  email: string;
-  password: string;
+  email: string | null;
+  password: string | null;
 }
 
 export interface LogInUserAction {

@@ -15,7 +15,8 @@ import {
   AuthAligner,
   AuthWrapper
 } from "../sharedStyledComponents";
-import { authObject, Props, State } from "../types/logIn";
+import { Props, State } from "../types/logIn";
+import { User } from "../../../store/types/user";
 
 const ResetLink = styled.div`
   margin-top: 10px;
@@ -25,13 +26,13 @@ const ResetLink = styled.div`
 class LogIn extends Component<Props, State> {
   noErrorsState = {
     isError: false,
-    emailErrorMessage: "",
-    passwordErrorMessage: ""
+    emailErrorMessage: null,
+    passwordErrorMessage: null
   };
 
   state = {
-    passwordField: "",
-    emailField: "",
+    passwordField: null,
+    emailField: null,
     ...this.noErrorsState
   };
 
@@ -121,7 +122,7 @@ class LogIn extends Component<Props, State> {
 
 function mapDispatchToProps(dispatch: Dispatch) {
   return {
-    saveUser: (auth: authObject) => dispatch(logInUser(auth))
+    saveUser: (auth: User) => dispatch(logInUser(auth))
   };
 }
 

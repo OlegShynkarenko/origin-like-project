@@ -72,7 +72,6 @@ class Register extends Component<Props, State> {
   };
 
   render() {
-    console.log(this.props);
     return (
       <AuthAligner>
         <AuthWrapper>

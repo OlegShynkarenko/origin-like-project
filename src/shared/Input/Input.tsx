@@ -21,7 +21,7 @@ export type InputEvent = React.FormEvent<HTMLInputElement>;
 interface Props extends React.HTMLProps<HTMLInputElement> {
   type: string;
   placeholder: string;
-  handleChange: (value: string) => void;
+  handleChange: (value: string | null) => void;
 }
 
 export const inputTypes = {
