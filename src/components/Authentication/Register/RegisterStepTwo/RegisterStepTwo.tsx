@@ -23,14 +23,14 @@ interface Props {
 }
 
 interface State {
-  emailField: string;
-  passwordField: string;
-  firstName: string;
-  lastName: string;
+  emailField: string | null;
+  passwordField: string | null;
+  firstName: string | null;
+  lastName: string | null;
   isError: boolean;
-  emailErrorMessage: string | undefined;
-  passwordErrorMessage: string | undefined;
-  textFieldErrorMessage: string;
+  emailErrorMessage: string | null;
+  passwordErrorMessage: string | null;
+  textFieldErrorMessage: string | null;
   verified: boolean;
 }
 
@@ -46,16 +46,16 @@ const Wrapper = styled.div`
 export class RegisterStepTwo extends Component<Props, State> {
   noErrorsState = {
     isError: false,
-    emailErrorMessage: "",
-    passwordErrorMessage: "",
-    textFieldErrorMessage: ""
+    emailErrorMessage: null,
+    passwordErrorMessage: null,
+    textFieldErrorMessage: null
   };
 
   state = {
-    emailField: "",
-    passwordField: "",
-    firstName: "",
-    lastName: "",
+    emailField: null,
+    passwordField: null,
+    firstName: null,
+    lastName: null,
     verified: false,
     ...this.noErrorsState
   };
@@ -64,7 +64,7 @@ export class RegisterStepTwo extends Component<Props, State> {
     this.props.history.push("/auth/register");
   };
 
-  handleChange = (type: string, value: string) => {
+  handleChange = (type: string, value: string | null) => {
     this.setState({
       ...this.state,
       [type]: value,
@@ -104,6 +104,10 @@ export class RegisterStepTwo extends Component<Props, State> {
     ) {
       this.props.submitData(
         {
+          country: null,
+          day: null,
+          month: null,
+          year: null,
           email: this.state.emailField,
           password: this.state.passwordField,
           firstName: this.state.firstName,

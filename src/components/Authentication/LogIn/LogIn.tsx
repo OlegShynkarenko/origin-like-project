@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
 import { Input, inputTypes } from "../../../shared/Input";
-import { isEmailValid, isPasswordValid } from "../../../validator";
+import { isEmailValid, isPasswordValid, IValidator } from "../../../validator";
 import { logInUser } from "../../../store/actionCreators/logInUser";
 import {
   InputWrapper,
@@ -36,7 +36,7 @@ class LogIn extends Component<Props, State> {
     ...this.noErrorsState
   };
 
-  handleChange = (type: string, value: string) => {
+  handleChange = (type: string, value: string | null) => {
     this.setState({
       ...this.state,
       [type]: value,
@@ -57,8 +57,8 @@ class LogIn extends Component<Props, State> {
     const id = new Date().valueOf();
     const { emailField, passwordField } = this.state;
 
-    const emailValidation = isEmailValid(emailField);
-    const passwordValidation = isPasswordValid(passwordField);
+    const emailValidation: IValidator = isEmailValid(emailField);
+    const passwordValidation: IValidator = isPasswordValid(passwordField);
 
     if (emailValidation.isValid && passwordValidation.isValid) {
       this.props.saveUser({

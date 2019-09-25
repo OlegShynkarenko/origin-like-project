@@ -18,19 +18,17 @@ interface Props {
 }
 
 interface State {
-  authType: string;
-  emailField: string;
-  emailErrorMessage: string | undefined;
+  emailField: string | null;
+  emailErrorMessage: string | null;
 }
 
 export const ResetPassword: React.FC<Props> = props => {
   const [state, setState] = useState<State>({
-    authType: "reset password",
     emailField: "",
     emailErrorMessage: ""
   });
 
-  const handleChange = (value: string) => {
+  const handleChange = (value: string | null) => {
     setState({
       ...state,
       emailField: value,

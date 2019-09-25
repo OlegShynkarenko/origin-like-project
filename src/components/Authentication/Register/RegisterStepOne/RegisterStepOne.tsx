@@ -43,6 +43,10 @@ export const RegisterStepOne: React.FC<Props> = props => {
     if (!Object.values(state).includes("")) {
       props.submitData(
         {
+          email: null,
+          firstName: null,
+          lastName: null,
+          password: null,
           country: state.country,
           day: state.day,
           month: state.month,
@@ -65,7 +69,7 @@ export const RegisterStepOne: React.FC<Props> = props => {
         <InputWrapper>
           <p>Country/Region</p>
           <Select
-            value={props.data.country}
+            value={props.data.country ? props.data.country : undefined}
             type={selectTypes.country}
             change={handleSetDataToTheState}
           />
@@ -74,17 +78,17 @@ export const RegisterStepOne: React.FC<Props> = props => {
           <p>Date of birth</p>
           <SelectGroup>
             <Select
-              value={props.data.day}
+              value={props.data.day ? props.data.day : undefined}
               type={selectTypes.day}
               change={handleSetDataToTheState}
             />
             <Select
-              value={props.data.month}
+              value={props.data.month ? props.data.month : undefined}
               type={selectTypes.month}
               change={handleSetDataToTheState}
             />
             <Select
-              value={props.data.year}
+              value={props.data.year ? props.data.year : undefined}
               type={selectTypes.year}
               change={handleSetDataToTheState}
             />
