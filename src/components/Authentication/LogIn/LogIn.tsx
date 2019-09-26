@@ -36,7 +36,7 @@ class LogIn extends Component<Props, State> {
     ...this.noErrorsState
   };
 
-  handleChange = (type: string, value: string | null) => {
+  handleChange = (type: string, value: Nullable<string>) => {
     this.setState({
       ...this.state,
       [type]: value,

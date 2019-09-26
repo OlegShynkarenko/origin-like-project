@@ -1,12 +1,12 @@
 export interface Data {
-  country: string | null;
-  day: string | null;
-  month: string | null;
-  year: string | null;
-  email: string | null;
-  password: string | null;
-  firstName: string | null;
-  lastName: string | null;
+  country: Nullable<string>;
+  day: Nullable<string>;
+  month: Nullable<string>;
+  year: Nullable<string>;
+  email: Nullable<string>;
+  password: Nullable<string>;
+  firstName: Nullable<string>;
+  lastName: Nullable<string>;
 }
 
 export interface User {

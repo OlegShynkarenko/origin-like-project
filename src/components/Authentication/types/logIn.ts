@@ -9,9 +9,9 @@ export interface Props {
 }
 
 export interface State {
-  passwordField: string | null;
-  emailField: string | null;
+  passwordField: Nullable<string>;
+  emailField: Nullable<string>;
   isError: boolean;
-  emailErrorMessage: string | null;
-  passwordErrorMessage: string | null;
+  emailErrorMessage: Nullable<string>;
+  passwordErrorMessage: Nullable<string>;
 }

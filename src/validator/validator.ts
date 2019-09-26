@@ -12,7 +12,7 @@ interface IValidatorFailed {
 
 export type IValidator = IValidatorSuccess | IValidatorFailed;
 
-export const isPasswordValid = (pass: string | null): IValidator => {
+export const isPasswordValid = (pass: Nullable<string>): IValidator => {
   return validator.isLength(pass as string, { min: 8, max: 25 })
     ? { isValid: true, message: null }
     : {
@@ -21,7 +21,7 @@ export const isPasswordValid = (pass: string | null): IValidator => {
       };
 };
 
-export const isEmailValid = (email: string | null): IValidator => {
+export const isEmailValid = (email: Nullable<string>): IValidator => {
   return validator.isEmail(email as string, {
     allow_utf8_local_part: false,
     require_tld: true
@@ -30,7 +30,7 @@ export const isEmailValid = (email: string | null): IValidator => {
     : { isValid: false, message: "Email address is invalid" };
 };
 
-export const isTextValid = (text: string | null): IValidator => {
+export const isTextValid = (text: Nullable<string>): IValidator => {
   return validator.isAlpha(text as string, "en-US") &&
     !validator.isEmpty(text as string)
     ? { isValid: true, message: null }

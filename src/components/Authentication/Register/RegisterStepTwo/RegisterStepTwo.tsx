@@ -23,14 +23,14 @@ interface Props {
 }
 
 interface State {
-  emailField: string | null;
-  passwordField: string | null;
-  firstName: string | null;
-  lastName: string | null;
+  emailField: Nullable<string>;
+  passwordField: Nullable<string>;
+  firstName: Nullable<string>;
+  lastName: Nullable<string>;
   isError: boolean;
-  emailErrorMessage: string | null;
-  passwordErrorMessage: string | null;
-  textFieldErrorMessage: string | null;
+  emailErrorMessage: Nullable<string>;
+  passwordErrorMessage: Nullable<string>;
+  textFieldErrorMessage: Nullable<string>;
   verified: boolean;
 }
 
@@ -64,7 +64,7 @@ export class RegisterStepTwo extends Component<Props, State> {
     this.props.history.push("/auth/register");
   };
 
-  handleChange = (type: string, value: string | null) => {
+  handleChange = (type: string, value: Nullable<string>) => {
     this.setState({
       ...this.state,
       [type]: value,

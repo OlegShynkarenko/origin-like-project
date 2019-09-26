@@ -97,7 +97,7 @@ export const Select: React.FC<Props> = props => {
   };
 
   let defaultVal;
-  if (props.value !== null) {
+  if (props.value !== undefined) {
     defaultVal = props.value;
   } else {
     defaultVal = props.type.charAt(0).toUpperCase() + props.type.slice(1);

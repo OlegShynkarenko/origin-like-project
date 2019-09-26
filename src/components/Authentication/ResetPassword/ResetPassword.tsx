@@ -18,21 +18,21 @@ interface Props {
 }
 
 interface State {
-  emailField: string | null;
-  emailErrorMessage: string | null;
+  emailField: Nullable<string>;
+  emailErrorMessage: Nullable<string>;
 }
 
 export const ResetPassword: React.FC<Props> = props => {
   const [state, setState] = useState<State>({
-    emailField: "",
-    emailErrorMessage: ""
+    emailField: null,
+    emailErrorMessage: null
   });
 
-  const handleChange = (value: string | null) => {
+  const handleChange = (value: Nullable<string>) => {
     setState({
       ...state,
       emailField: value,
-      emailErrorMessage: ""
+      emailErrorMessage: null
     });
   };
 
