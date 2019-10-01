@@ -47,7 +47,7 @@ class Register extends Component<Props, State> {
     }
   }
 
-  handleSetUserDataToTheState = (data: Data, type: string) => {
+  handleSetUserDataToTheState = (data: Data, type: "step_1" | "step_2") => {
     if (type === "step_1") {
       this.setState(() => {
         return {

@@ -1,7 +1,7 @@
 import React, { FormEvent, ReactNode, useState } from "react";
 import { History } from "history";
 
-import { Input, inputTypes } from "../../../shared/Input";
+import { Input, inputDOMTypes } from "../../../shared/Input";
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
 import { isEmailValid } from "../../../validator";
 import {
@@ -61,7 +61,7 @@ export const ResetPassword: React.FC<Props> = props => {
           <InputWrapper>
             <Input
               handleChange={handleChange}
-              type={inputTypes.attributes.email}
+              type={inputDOMTypes.email}
               placeholder={"Type your email example@example.com"}
             />
           </InputWrapper>

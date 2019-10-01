@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import { paths } from "../../../router/paths";
 
 const Wrapper = styled.div`
   display: flex;
@@ -33,7 +34,7 @@ export const TabsWrapper: React.FC = () => {
       <Tabs>
         <LinkWrapper>
           <NavLink
-            to={`/auth/login`}
+            to={paths.login}
             style={{ textDecoration: "none", color: "grey" }}
             activeStyle={{ color: "rgb(255, 171, 0)" }}
           >
@@ -42,7 +43,7 @@ export const TabsWrapper: React.FC = () => {
         </LinkWrapper>
         <LinkWrapper>
           <NavLink
-            to={`/auth/register`}
+            to={paths.register}
             style={{ textDecoration: "none", color: "grey" }}
             activeStyle={{ color: "rgb(255, 171, 0)" }}
           >

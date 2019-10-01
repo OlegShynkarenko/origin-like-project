@@ -12,7 +12,7 @@ import { Data } from "../../types/register";
 interface Props {
   history: History;
   match: match;
-  submitData: (data: Data, type: string) => void;
+  submitData: (data: Data, type: "step_1" | "step_2") => void;
   data: Data;
 }
 

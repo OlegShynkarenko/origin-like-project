@@ -5,7 +5,11 @@ import { Dispatch } from "redux";
 import { NavLink } from "react-router-dom";
 
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
-import { Input, inputTypes } from "../../../shared/Input";
+import {
+  Input,
+  inputDOMTypes,
+  ownInputFieldTypes
+} from "../../../shared/Input";
 import { isEmailValid, isPasswordValid, IValidator } from "../../../validator";
 import { logInUser } from "../../../store/actionCreators/logInUser";
 import {
@@ -45,11 +49,11 @@ class LogIn extends Component<Props, State> {
   };
   handleEmailChange = this.handleChange.bind(
     this,
-    inputTypes.fieldTypes.emailField
+    ownInputFieldTypes.emailField
   );
   handlePasswordChange = this.handleChange.bind(
     this,
-    inputTypes.fieldTypes.passwordField
+    ownInputFieldTypes.passwordField
   );
 
   handleSubmit = (event: FormEvent) => {
@@ -89,12 +93,12 @@ class LogIn extends Component<Props, State> {
             <InputWrapper>
               <Input
                 handleChange={this.handleEmailChange}
-                type={inputTypes.attributes.email}
+                type={inputDOMTypes.email}
                 placeholder={"Email Address"}
               />
               <Input
                 handleChange={this.handlePasswordChange}
-                type={inputTypes.attributes.password}
+                type={inputDOMTypes.password}
                 placeholder={"Password"}
               />
             </InputWrapper>

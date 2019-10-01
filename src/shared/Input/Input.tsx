@@ -24,24 +24,22 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
   handleChange: (value: Nullable<string>) => void;
 }
 
-export const inputTypes = {
-  attributes: {
-    email: "email",
-    password: "password",
-    text: "text"
-  },
-  fieldTypes: {
-    emailField: "emailField",
-    passwordField: "passwordField",
-    firstName: "firstName",
-    lastName: "lastName"
-  }
+export const inputDOMTypes = {
+  email: "email",
+  password: "password",
+  text: "text"
+};
+
+export const ownInputFieldTypes = {
+  emailField: "emailField",
+  passwordField: "passwordField",
+  firstName: "firstName",
+  lastName: "lastName"
 };
 
 export const Input: React.FC<Props> = ({ type, placeholder, handleChange }) => {
   const handleOnChange = (event: InputEvent) => {
-    const value = event.currentTarget.value;
-    handleChange(value);
+    handleChange(event.currentTarget.value);
   };
 
   return (

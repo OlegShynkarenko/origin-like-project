@@ -9,7 +9,11 @@ import {
   ErrorsWrapper,
   InputWrapper
 } from "../../sharedStyledComponents";
-import { Input, inputTypes } from "../../../../shared/Input";
+import {
+  Input,
+  inputDOMTypes,
+  ownInputFieldTypes
+} from "../../../../shared/Input";
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
 import {
   isEmailValid,
@@ -19,7 +23,7 @@ import {
 
 interface Props {
   history: History;
-  submitData: (data: Data, type: string) => void;
+  submitData: (data: Data, type: "step_1" | "step_2") => void;
 }
 
 interface State {
@@ -73,19 +77,19 @@ export class RegisterStepTwo extends Component<Props, State> {
   };
   handleEmailChange = this.handleChange.bind(
     this,
-    inputTypes.fieldTypes.emailField
+    ownInputFieldTypes.emailField
   );
   handlePasswordChange = this.handleChange.bind(
     this,
-    inputTypes.fieldTypes.passwordField
+    ownInputFieldTypes.passwordField
   );
   handleFirstNameChange = this.handleChange.bind(
     this,
-    inputTypes.fieldTypes.firstName
+    ownInputFieldTypes.firstName
   );
   handleLastNameChange = this.handleChange.bind(
     this,
-    inputTypes.fieldTypes.lastName
+    ownInputFieldTypes.lastName
   );
 
   handleSubmit = (event: FormEvent) => {
@@ -146,12 +150,12 @@ export class RegisterStepTwo extends Component<Props, State> {
         <form noValidate onSubmit={this.handleSubmit}>
           <InputWrapper>
             <Input
-              type={inputTypes.attributes.email}
+              type={inputDOMTypes.email}
               placeholder="Email Address"
               handleChange={this.handleEmailChange}
             />
             <Input
-              type={inputTypes.attributes.password}
+              type={inputDOMTypes.password}
               placeholder="Password"
               handleChange={this.handlePasswordChange}
             />
@@ -163,12 +167,12 @@ export class RegisterStepTwo extends Component<Props, State> {
           <InputWrapper>
             <Heading>People can find me by searching ...</Heading>
             <Input
-              type={inputTypes.attributes.text}
+              type={inputDOMTypes.text}
               placeholder="First Name"
               handleChange={this.handleFirstNameChange}
             />
             <Input
-              type={inputTypes.attributes.text}
+              type={inputDOMTypes.text}
               placeholder="Last Name"
               handleChange={this.handleLastNameChange}
             />

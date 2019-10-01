@@ -89,11 +89,10 @@ export const Select: React.FC<Props> = props => {
   };
 
   const handleChange = (event: React.FormEvent<HTMLSelectElement>) => {
-    const selectedValue = event.currentTarget.value;
-    const selectedType = props.type;
-    if (selectedType != null) {
-      props.change(selectedType, selectedValue);
+    if (props.type === null) {
+      return;
     }
+    props.change(props.type, event.currentTarget.value);
   };
 
   let defaultVal;
