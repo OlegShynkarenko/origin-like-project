@@ -9,11 +9,7 @@ import {
   ErrorsWrapper,
   InputWrapper
 } from "../../sharedStyledComponents";
-import {
-  Input,
-  inputDOMTypes,
-  ownInputFieldTypes
-} from "../../../../shared/Input";
+import { Input, inputDOMTypes, ownInputFieldTypes } from "@shared/Input";
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
 import {
   isEmailValid,

@@ -6,7 +6,7 @@ import { Dispatch } from "redux";
 import { AuthAligner, AuthWrapper } from "../sharedStyledComponents";
 import { RegisterStepTwo } from "./RegisterStepTwo/RegisterStepTwo";
 import { RegisterStepOne } from "./RegisterStepOne/RegisterStepOne";
-import { registerUser } from "../../../store/actionCreators/registerUser";
+import { registerUser } from "@store/actionCreators/registerUser";
 import { History } from "history";
 import { Data, User } from "../types/register";
 

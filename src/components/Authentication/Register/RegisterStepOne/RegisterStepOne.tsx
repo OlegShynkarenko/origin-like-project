@@ -4,7 +4,7 @@ import { History } from "history";
 import { match } from "react-router-dom";
 
 import { InputWrapper } from "../../sharedStyledComponents";
-import { Select, selectTypes } from "../../../../shared/Select";
+import { Select, selectTypes } from "@shared/Select";
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
 import { ErrorsWrapper, Error } from "../../sharedStyledComponents";
 import { Data } from "../../types/register";

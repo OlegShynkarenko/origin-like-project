@@ -5,13 +5,9 @@ import { Dispatch } from "redux";
 import { NavLink } from "react-router-dom";
 
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
-import {
-  Input,
-  inputDOMTypes,
-  ownInputFieldTypes
-} from "../../../shared/Input";
+import { Input, inputDOMTypes, ownInputFieldTypes } from "@shared/Input";
 import { isEmailValid, isPasswordValid, IValidator } from "../../../validator";
-import { logInUser } from "../../../store/actionCreators/logInUser";
+import { logInUser } from "@store/actionCreators/logInUser";
 import {
   InputWrapper,
   ErrorsWrapper,
@@ -20,7 +16,7 @@ import {
   AuthWrapper
 } from "../sharedStyledComponents";
 import { Props, State } from "../types/logIn";
-import { User } from "../../../store/types/user";
+import { User } from "@store/types/user";
 
 const ResetLink = styled.div`
   margin-top: 10px;

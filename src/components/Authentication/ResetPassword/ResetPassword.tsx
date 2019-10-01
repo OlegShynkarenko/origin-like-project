@@ -1,7 +1,7 @@
 import React, { FormEvent, ReactNode, useState } from "react";
 import { History } from "history";
 
-import { Input, inputDOMTypes } from "../../../shared/Input";
+import { Input, inputDOMTypes } from "@shared/Input";
 import { ButtonComponent } from "simple-react-library_button-component/lib/Button";
 import { isEmailValid } from "../../../validator";
 import {

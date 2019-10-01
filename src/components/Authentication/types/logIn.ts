@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { History } from "history";
-import { User } from "../../../store/types/user";
+import { User } from "@store/types/user";
 
 export interface Props {
   children?: ReactNode;
