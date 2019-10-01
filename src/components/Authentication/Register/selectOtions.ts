@@ -1,4 +1,4 @@
-export const countryOptions = [
+export const countryOptions: Array<string> = [
   "Australia",
   "Brazil",
   "China",
@@ -9,7 +9,7 @@ export const countryOptions = [
   "United States"
 ];
 
-export const dateOptions = [
+export const dateOptions: Array<number> = [
   1,
   2,
   3,
@@ -43,7 +43,7 @@ export const dateOptions = [
   31
 ];
 
-export const monthOptions = [
+export const monthOptions: Array<string> = [
   "January",
   "February",
   "March",

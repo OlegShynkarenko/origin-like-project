@@ -69,8 +69,10 @@ export const RegisterStepOne: React.FC<Props> = props => {
         <InputWrapper>
           <p>Country/Region</p>
           <Select
-            value={props.data.country ? props.data.country : undefined}
-            type={selectTypes.country}
+            value={
+              props.data.country ? props.data.country : selectTypes.country
+            }
+            placeholder={selectTypes.country}
             change={handleSetDataToTheState}
           />
         </InputWrapper>
@@ -78,18 +80,18 @@ export const RegisterStepOne: React.FC<Props> = props => {
           <p>Date of birth</p>
           <SelectGroup>
             <Select
-              value={props.data.day ? props.data.day : undefined}
-              type={selectTypes.day}
+              value={props.data.day ? props.data.day : selectTypes.day}
+              placeholder={selectTypes.day}
               change={handleSetDataToTheState}
             />
             <Select
-              value={props.data.month ? props.data.month : undefined}
-              type={selectTypes.month}
+              value={props.data.month ? props.data.month : selectTypes.month}
+              placeholder={selectTypes.month}
               change={handleSetDataToTheState}
             />
             <Select
-              value={props.data.year ? props.data.year : undefined}
-              type={selectTypes.year}
+              value={props.data.year ? props.data.year : selectTypes.year}
+              placeholder={selectTypes.year}
               change={handleSetDataToTheState}
             />
           </SelectGroup>

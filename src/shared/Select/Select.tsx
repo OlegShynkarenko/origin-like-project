@@ -22,30 +22,29 @@ const SelectComponent = styled.select`
 `;
 
 export const selectTypes = {
-  country: "country",
-  day: "day",
-  month: "month",
-  year: "year"
+  country: "Country",
+  day: "Day",
+  month: "Month",
+  year: "Year"
 };
 
-interface Props extends React.HTMLProps<HTMLSelectElement> {
-  type: string;
+interface Props {
+  placeholder: string;
   change: (type: string, value: string) => void;
-  value: string | undefined;
+  value: string | null;
 }
 
 const optionsTypes = {
-  country: countryOptions,
-  day: dateOptions,
-  month: monthOptions,
-  year: yearOptions
+  [selectTypes.country]: countryOptions,
+  [selectTypes.day]: dateOptions,
+  [selectTypes.month]: monthOptions,
+  [selectTypes.year]: yearOptions
 };
 
 export const Select: React.FC<Props> = props => {
   const renderOptions = (type: string) => {
-    // @ts-ignore
-    const options = optionsTypes[type];
-    // @ts-ignore
+    const options: Array<string | number> = optionsTypes[type];
+
     return options.map(opt => {
       return (
         <option key={opt} value={opt}>
@@ -53,61 +52,21 @@ export const Select: React.FC<Props> = props => {
         </option>
       );
     });
-    // if (props.type === "country") {
-    //   return countryOptions.map(country => {
-    //     return (
-    //       <option key={country} value={country}>
-    //         {country}
-    //       </option>
-    //     );
-    //   });
-    // } else if (props.type === "date") {
-    //   return dateOptions.map(date => {
-    //     return (
-    //       <option key={date} value={date}>
-    //         {date}
-    //       </option>
-    //     );
-    //   });
-    // } else if (props.type === "month") {
-    //   return monthOptions.map(month => {
-    //     return (
-    //       <option key={month} value={month}>
-    //         {month}
-    //       </option>
-    //     );
-    //   });
-    // } else if (props.type === "year") {
-    //   return yearOptions.map(year => {
-    //     return (
-    //       <option key={year} value={year}>
-    //         {year}
-    //       </option>
-    //     );
-    //   });
-    // }
   };
 
   const handleChange = (event: React.FormEvent<HTMLSelectElement>) => {
-    if (props.type === null) {
-      return;
-    }
-    props.change(props.type, event.currentTarget.value);
+    props.change(props.placeholder.toLowerCase(), event.currentTarget.value);
   };
 
-  let defaultVal;
-  if (props.value !== undefined) {
-    defaultVal = props.value;
-  } else {
-    defaultVal = props.type.charAt(0).toUpperCase() + props.type.slice(1);
-  }
-
   return (
-    <SelectComponent onChange={handleChange} defaultValue={defaultVal}>
-      <option defaultValue={defaultVal} disabled>
-        {defaultVal}
+    <SelectComponent
+      onChange={handleChange}
+      defaultValue={props.value || props.placeholder}
+    >
+      <option defaultValue={props.placeholder} disabled>
+        {props.placeholder}
       </option>
-      {renderOptions(props.type)}
+      {renderOptions(props.placeholder)}
     </SelectComponent>
   );
 };
