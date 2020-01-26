@@ -12,7 +12,6 @@ export const userLogIn = (state = initialState, action: Data) => {
   if (action.type === LOGIN_USER) {
     return {
       ...state,
-      id: action.payload.id,
       email: action.payload.email,
       password: action.payload.password
     };

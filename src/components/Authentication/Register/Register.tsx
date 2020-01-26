@@ -39,8 +39,10 @@ class Register extends Component<Props, State> {
   };
 
   componentDidUpdate(): void {
-    const id = new Date().valueOf();
-    const user = { ...this.state, id };
+    const user = {
+      ...this.state,
+      birthDate: `${this.state.day} ${this.state.month} ${this.state.year}`
+    };
     if (!Object.values(user).includes("")) {
       this.props.registerUser(user);
       this.props.history.push("/auth/login");

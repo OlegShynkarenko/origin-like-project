@@ -10,11 +10,8 @@ export interface Data {
 }
 
 export interface User {
-  id: number;
   country: string;
-  day: string;
-  month: string;
-  year: string;
+  birthDate: string;
   email: string;
   password: string;
   firstName: string;

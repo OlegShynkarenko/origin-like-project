@@ -54,7 +54,6 @@ class LogIn extends Component<Props, State> {
 
   handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    const id = new Date().valueOf();
     const { emailField, passwordField } = this.state;
 
     const emailValidation: IValidator = isEmailValid(emailField);
@@ -62,7 +61,6 @@ class LogIn extends Component<Props, State> {
 
     if (emailValidation.isValid && passwordValidation.isValid) {
       this.props.saveUser({
-        id,
         email: emailField,
         password: passwordField
       });

@@ -7,17 +7,16 @@ interface Data {
   type: string;
 }
 
-export const registerUser = (state = initialState, action: Data) => {
+export const registerUserReducer = (state = initialState, action: Data) => {
   if (action.type === REGISTER_USER) {
     return {
       ...state,
-      id: action.payload.id,
       firstName: action.payload.firstName,
       lastName: action.payload.lastName,
       email: action.payload.email,
       password: action.payload.password,
       country: action.payload.country,
-      birthDate: `${action.payload.day} ${action.payload.month} ${action.payload.year}`
+      birthDate: action.payload.birthDate
     };
   } else {
     return state;
