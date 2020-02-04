@@ -1,19 +1,51 @@
-import { LOGIN_USER } from "../types/user";
-import { User } from "../types/user";
+import { LOGIN_USER_SUCCESS, LOGIN_USER_FAIL } from "../types/user";
+import { userCredentials } from "../types/user";
 
-const initialState = {};
+const initialState = {
+  auth: {
+    user: null,
+    error: null
+  }
+};
+
+interface loggedUser {
+  email: string;
+  name: string;
+}
+
+export interface State {
+  auth: {
+    user: null | loggedUser;
+    error: null | string;
+  };
+}
 
 interface Data {
-  payload: User;
+  payload: userCredentials;
   type: string;
 }
 
-export const userLogIn = (state = initialState, action: Data) => {
-  if (action.type === LOGIN_USER) {
+export const logInUserReducer = (state = initialState, action: Data) => {
+  if (action.type === LOGIN_USER_SUCCESS) {
     return {
       ...state,
-      email: action.payload.email,
-      password: action.payload.password
+      auth: {
+        ...state.auth,
+        user: {
+          email: action.payload.email,
+          name: action.payload.name
+        },
+        error: null
+      }
+    };
+  } else if (action.type === LOGIN_USER_FAIL) {
+    return {
+      ...state,
+      auth: {
+        ...state.auth,
+        user: null,
+        error: action.payload.error
+      }
     };
   } else {
     return state;

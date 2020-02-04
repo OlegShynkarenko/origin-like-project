@@ -2,13 +2,13 @@ import { createStore, applyMiddleware, combineReducers } from "redux";
 
 import logger from "redux-logger";
 import { registerUserReducer } from "./reducers/registerUserReducer";
-import { userLogIn } from "./reducers/userLogIn";
+import { logInUserReducer } from "./reducers/logInUserReducer";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "@store/Sagas/user";
 
 const sagaMiddleware = createSagaMiddleware();
 const rootReducer = combineReducers({
-  login: userLogIn,
+  login: logInUserReducer,
   register: registerUserReducer
 });
 

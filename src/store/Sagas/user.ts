@@ -1,6 +1,6 @@
 import { call, put, takeLatest, all } from "redux-saga/effects";
 import { addUserToDb } from "../Sagas/services/addDataToDb/addUserToDb";
-import { RegisterUser, RegisterUserAction } from "@store/types/RegisterUser";
+import { RegisterUserAction } from "@store/types/RegisterUser";
 import { LogInUserAction } from "@store/types/user";
 import { logInUser } from "@store/Sagas/services/userLogIn/userLogIn";
 
@@ -17,10 +17,21 @@ function* registerUserSaga(action: RegisterUserAction) {
 function* logInUserSaga(action: LogInUserAction) {
   try {
     yield put({ type: "LOGIN_USER_START" });
-    yield call(logInUser, action.payload);
-    yield put({ type: "LOGIN_USER_SUCCESS" });
+    const user = yield call(logInUser, action.payload);
+    yield put({
+      type: "LOGIN_USER_SUCCESS",
+      payload: {
+        email: user.email,
+        name: user.name
+      }
+    });
   } catch (e) {
-    yield put({ type: "LOGIN_USER_FAIL" });
+    yield put({
+      type: "LOGIN_USER_FAIL",
+      payload: {
+        error: e.message
+      }
+    });
   }
 }
 

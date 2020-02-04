@@ -27,7 +27,8 @@ class LogIn extends Component<Props, State> {
   noErrorsState = {
     isError: false,
     emailErrorMessage: null,
-    passwordErrorMessage: null
+    passwordErrorMessage: null,
+    authErrorMessage: null
   };
 
   state = {
@@ -35,6 +36,19 @@ class LogIn extends Component<Props, State> {
     emailField: null,
     ...this.noErrorsState
   };
+
+  static getDerivedStateFromProps(props: any, state: any) {
+    const error = props.login.auth.error;
+    if (error) {
+      return {
+        isError: true,
+        authErrorMessage: error
+      };
+    } else if (props.login.auth.user) {
+      props.history.push("/");
+    }
+    return null;
+  }
 
   handleChange = (type: string, value: Nullable<string>) => {
     this.setState({
@@ -64,7 +78,6 @@ class LogIn extends Component<Props, State> {
         email: emailField,
         password: passwordField
       });
-      this.props.history.push("/");
     } else {
       this.setState(() => {
         return {
@@ -77,6 +90,13 @@ class LogIn extends Component<Props, State> {
       });
     }
   };
+
+  // handleFacebookLogin = () => {
+  //   return fetch("/api/login/facebook", {
+  //     method: "GET",
+  //     headers: { "Content-Type": "application/json" },
+  //   });
+  // };
 
   render() {
     return (
@@ -108,14 +128,29 @@ class LogIn extends Component<Props, State> {
           <ErrorsWrapper>
             <Error>{this.state.emailErrorMessage}</Error>
             <Error>{this.state.passwordErrorMessage}</Error>
+            <Error>{this.state.authErrorMessage}</Error>
           </ErrorsWrapper>
           <ResetLink>
             <NavLink to={"/reset-password"}>Forget your password?</NavLink>
           </ResetLink>
+          <div style={{ marginTop: "20px" }}>
+            <ButtonComponent
+              appearance="primary"
+              width="100%"
+              height={"41px"}
+              // onClick={this.handleFacebookLogin}
+            >
+              Login with Facebook
+            </ButtonComponent>
+          </div>
         </AuthWrapper>
       </AuthAligner>
     );
   }
+}
+
+function mapStateToProps(state: State) {
+  return state;
 }
 
 function mapDispatchToProps(dispatch: Dispatch) {
@@ -125,7 +160,7 @@ function mapDispatchToProps(dispatch: Dispatch) {
 }
 
 const logInComponent = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(LogIn);
 export default logInComponent;

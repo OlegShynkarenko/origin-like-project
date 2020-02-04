@@ -9,6 +9,8 @@ import { help } from "../../pages/help";
 import { Footer } from "@shared/Footer";
 import { Navbar } from "../Navbar";
 import { StyledContentWrapper as ContentWrapper } from "../../App/StyledContentWrapper";
+import { Profile } from "../Profile/Profile";
+import { PrivateRoute } from "../../router/PrivateRoute";
 
 export const Main: React.FC = () => {
   return (
@@ -22,6 +24,9 @@ export const Main: React.FC = () => {
             <Route exact path="/" component={shop} />
             <Route path="/access" component={access} />
             <Route path="/help" component={help} />
+            <PrivateRoute>
+              <Route exact path="/profile" component={Profile} />
+            </PrivateRoute>
           </Switch>
         </Content>
         <Footer />
