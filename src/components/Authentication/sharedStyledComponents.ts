@@ -17,8 +17,7 @@ export const Error = styled.p`
 export const AuthAligner = styled.div`
   display: flex;
   justify-content: center;
-  padding: 10px;
-  margin-top: 50px;
+  box-sizing: border-box;
   color: #000;
   width: 100%;
 `;

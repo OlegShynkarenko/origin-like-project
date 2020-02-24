@@ -1,10 +1,20 @@
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, combineReducers } from "redux";
 
 import logger from "redux-logger";
-import { logInUser } from "./reducers/logInUser";
+import { registerUserReducer } from "./reducers/registerUserReducer";
+import { logInUserReducer } from "./reducers/logInUserReducer";
+import createSagaMiddleware from "redux-saga";
+import rootSaga from "@store/Sagas/user";
+
+const sagaMiddleware = createSagaMiddleware();
+const rootReducer = combineReducers({
+  login: logInUserReducer,
+  register: registerUserReducer
+});
 
 export const store = createStore(
-  // @ts-ignore
-  logInUser,
-  applyMiddleware(logger)
+  rootReducer,
+  applyMiddleware(sagaMiddleware, logger)
 );
+
+sagaMiddleware.run(rootSaga);

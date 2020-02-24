@@ -3,13 +3,16 @@ import { NavLink } from "react-router-dom";
 
 import { StyledNavbarWrapper as NavbarWrapper } from "./NavbarWrapper";
 import { LinkWrapper } from "./LinkWrapper";
+import { paths } from "../../router/paths";
+import { State } from "../Authentication/types/logIn";
+import { connect } from "react-redux";
 
-export const Navbar: React.FC = () => {
+const navbar: React.FC = (props: any) => {
   return (
     <NavbarWrapper>
       <div>
         <LinkWrapper>
-          <NavLink to={`/access`} activeStyle={{ color: "red" }}>
+          <NavLink to={paths.access} activeStyle={{ color: "red" }}>
             Access
           </NavLink>
         </LinkWrapper>
@@ -19,23 +22,47 @@ export const Navbar: React.FC = () => {
           </NavLink>
         </LinkWrapper>
         <LinkWrapper>
-          <NavLink to={`/help`} activeStyle={{ color: "red" }}>
+          <NavLink to={paths.help} activeStyle={{ color: "red" }}>
             Help
           </NavLink>
         </LinkWrapper>
       </div>
       <div>
+        {props.login.auth.user ? (
+          <LinkWrapper>
+            <NavLink to={paths.login} activeStyle={{ color: "red" }}>
+              Log out
+            </NavLink>
+          </LinkWrapper>
+        ) : (
+          <>
+            <LinkWrapper>
+              <NavLink to={paths.login} activeStyle={{ color: "red" }}>
+                Log In
+              </NavLink>
+            </LinkWrapper>
+            <LinkWrapper>
+              <NavLink to={paths.register} activeStyle={{ color: "red" }}>
+                Register
+              </NavLink>
+            </LinkWrapper>
+          </>
+        )}
         <LinkWrapper>
-          <NavLink to={`/login`} activeStyle={{ color: "red" }}>
-            Log in
-          </NavLink>
-        </LinkWrapper>
-        <LinkWrapper>
-          <NavLink to={`/register`} activeStyle={{ color: "red" }}>
-            Register
+          <NavLink to="/profile" activeStyle={{ color: "red" }}>
+            Profile
           </NavLink>
         </LinkWrapper>
       </div>
     </NavbarWrapper>
   );
 };
+
+function mapStateToProps(state: State) {
+  return state;
+}
+
+export const Navbar = connect(
+  mapStateToProps,
+  null
+)(navbar);

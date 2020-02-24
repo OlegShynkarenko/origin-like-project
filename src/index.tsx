@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import "@atlaskit/css-reset";
 
 import App from "./App/App";
-import { store } from "./store";
+import { store } from "store";
 
 ReactDOM.render(
   <Provider store={store}>

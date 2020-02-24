@@ -1,19 +1,26 @@
-export const SAVE_USER = "SAVE_USER";
-export const SOME_ACTION = "SOME_ACTION";
+export const LOGIN_USER = "LOGIN_USER";
+export const LOGIN_USER_SUCCESS = "LOGIN_USER_SUCCESS";
+export const LOGIN_USER_FAIL = "LOGIN_USER_FAIL";
 
 export interface User {
-  id: number;
-  email: string;
-  password: string;
+  email: string | null;
+  password: string | null;
 }
 
-export interface SaveUserAction {
-  type: typeof SAVE_USER;
+export interface LogInUserAction {
+  type: typeof LOGIN_USER;
   payload: User;
 }
 
-export interface SomeAction {
-  type: typeof SOME_ACTION;
+export interface userCredentials {
+  email: string;
+  name: string;
+  error: string;
 }
 
-export type UserAction = SaveUserAction | SomeAction;
+export interface LogInUserSuccessAction {
+  type: typeof LOGIN_USER_SUCCESS;
+  payload: userCredentials;
+}
+
+export type UserAction = LogInUserAction;
