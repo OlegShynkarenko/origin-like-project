@@ -1,15 +1,6 @@
 import React from "react";
-import { DummyContent } from "../../components/DummyContent";
+import * as styles from "./styles";
 
-export const shop: React.FC = () => {
-  return (
-    <div>
-      <DummyContent />
-      <DummyContent />
-      <DummyContent />
-      <DummyContent />
-      <DummyContent />
-      <DummyContent />
-    </div>
-  );
+export const Shop: React.FC = () => {
+  return <styles.contentWrapper></styles.contentWrapper>;
 };

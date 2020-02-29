@@ -35,12 +35,8 @@ function* logInUserSaga(action: LogInUserAction) {
   }
 }
 
-function* watchUser() {
+export function* watchUser() {
   // @ts-ignore
   yield takeLatest("REGISTER_USER", registerUserSaga);
   yield takeLatest("LOGIN_USER", logInUserSaga);
-}
-
-export default function* rootSaga() {
-  yield all([watchUser()]);
 }
