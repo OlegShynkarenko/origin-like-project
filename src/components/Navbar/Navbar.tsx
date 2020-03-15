@@ -29,11 +29,18 @@ const navbar: React.FC = (props: any) => {
       </div>
       <div>
         {props.login.auth.user ? (
-          <LinkWrapper>
-            <NavLink to={paths.login} activeStyle={{ color: "red" }}>
-              Log out
-            </NavLink>
-          </LinkWrapper>
+          <>
+            <LinkWrapper>
+              <NavLink to="/profile" activeStyle={{ color: "red" }}>
+                Profile
+              </NavLink>
+            </LinkWrapper>
+            <LinkWrapper>
+              <NavLink to={paths.login} activeStyle={{ color: "red" }}>
+                Log out
+              </NavLink>
+            </LinkWrapper>
+          </>
         ) : (
           <>
             <LinkWrapper>
@@ -48,11 +55,6 @@ const navbar: React.FC = (props: any) => {
             </LinkWrapper>
           </>
         )}
-        <LinkWrapper>
-          <NavLink to="/profile" activeStyle={{ color: "red" }}>
-            Profile
-          </NavLink>
-        </LinkWrapper>
       </div>
     </NavbarWrapper>
   );
