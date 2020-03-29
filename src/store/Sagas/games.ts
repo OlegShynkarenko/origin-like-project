@@ -11,7 +11,7 @@ function* getGamesListSaga() {
   try {
     yield put({ type: FETCH_GAMES_START });
     const data = yield call(getGamesList);
-    yield put({ type: FETCH_GAMES_SUCCESS, games: data.products });
+    yield put({ type: FETCH_GAMES_SUCCESS, data });
   } catch (e) {
     yield put({ type: FETCH_GAMES_FAIL });
   }

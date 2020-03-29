@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import get from "lodash.get";
 
 import { StyledNavbarWrapper as NavbarWrapper } from "./NavbarWrapper";
 import { LinkWrapper } from "./LinkWrapper";
@@ -8,6 +9,7 @@ import { State } from "../Authentication/types/logIn";
 import { connect } from "react-redux";
 
 const navbar: React.FC = (props: any) => {
+  const authUser = get(props, "login.auth.user", null);
   return (
     <NavbarWrapper>
       <div>
@@ -28,7 +30,7 @@ const navbar: React.FC = (props: any) => {
         </LinkWrapper>
       </div>
       <div>
-        {props.login.auth.user ? (
+        {authUser ? (
           <>
             <LinkWrapper>
               <NavLink to="/profile" activeStyle={{ color: "red" }}>
