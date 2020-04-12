@@ -42,7 +42,7 @@ const ShopComponent: React.FC = (props: any) => {
 
 function mapStateToProps(state: State) {
   return {
-    games: state.games.games
+    games: state.games
   };
 }
 
