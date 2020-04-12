@@ -3,12 +3,12 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import "@atlaskit/css-reset";
 
-import App from "./App/App";
+import Application from "./App/App";
 import { store } from "store";
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Application />
   </Provider>,
   document.getElementById("root")
 );

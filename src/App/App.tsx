@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 
 import { ResetPassword } from "../components/Authentication/ResetPassword/ResetPassword";
@@ -6,8 +6,19 @@ import { Main } from "../components/Main/Main";
 import { Router } from "../router/Router";
 import { paths } from "../router/paths";
 import { auth } from "../pages/auth/auth";
+import { Dispatch } from "redux";
+import { getGamesList } from "@store/actionCreators/getGamesList";
+import { connect } from "react-redux";
 
-const App: React.FC = () => {
+interface Props {
+  saveGames: () => void;
+}
+
+// @ts-ignore
+const App: React.FC = (props: Props) => {
+  useEffect(() => {
+    props.saveGames();
+  });
   return (
     <Router>
       <Switch>
@@ -19,4 +30,14 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+function mapDispatchToProps(dispatch: Dispatch) {
+  return {
+    saveGames: () => dispatch(getGamesList())
+  };
+}
+
+const Application = connect(
+  null,
+  mapDispatchToProps
+)(App);
+export default Application;

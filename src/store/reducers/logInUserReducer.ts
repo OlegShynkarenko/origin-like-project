@@ -30,7 +30,6 @@ export const logInUserReducer = (state = initialState, action: Data) => {
     return {
       ...state,
       auth: {
-        ...state.auth,
         user: {
           email: action.payload.email,
           name: action.payload.name
@@ -42,7 +41,6 @@ export const logInUserReducer = (state = initialState, action: Data) => {
     return {
       ...state,
       auth: {
-        ...state.auth,
         user: null,
         error: action.payload.error
       }
