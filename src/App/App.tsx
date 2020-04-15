@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 
 import { ResetPassword } from "../components/Authentication/ResetPassword/ResetPassword";
