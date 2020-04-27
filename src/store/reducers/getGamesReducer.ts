@@ -1,4 +1,7 @@
-import { FETCH_GAMES_SUCCESS } from "@store/types/games";
+import {
+  FETCH_GAMES_SUCCESS,
+  FETCH_GAMES_FOR_CURRENT_PAGE_SUCCESS
+} from "@store/types/games";
 
 const initialState: Array<Game> = [];
 
@@ -25,6 +28,8 @@ interface Data {
 export const getGamesReducer = (state = initialState, action: Data) => {
   if (action.type === FETCH_GAMES_SUCCESS) {
     return [...state, ...action.data];
+  } else if (action.type === FETCH_GAMES_FOR_CURRENT_PAGE_SUCCESS) {
+    return [...action.data];
   } else {
     return state;
   }

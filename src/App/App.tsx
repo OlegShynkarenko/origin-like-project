@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 
 import { ResetPassword } from "../components/Authentication/ResetPassword/ResetPassword";
@@ -15,10 +15,7 @@ interface Props {
 }
 
 // @ts-ignore
-const App: React.FC = (props: Props) => {
-  useEffect(() => {
-    props.saveGames();
-  });
+export const App: React.FC = (props: Props) => {
   return (
     <Router>
       <Switch>
@@ -29,15 +26,3 @@ const App: React.FC = (props: Props) => {
     </Router>
   );
 };
-
-function mapDispatchToProps(dispatch: Dispatch) {
-  return {
-    saveGames: () => dispatch(getGamesList())
-  };
-}
-
-const Application = connect(
-  null,
-  mapDispatchToProps
-)(App);
-export default Application;
