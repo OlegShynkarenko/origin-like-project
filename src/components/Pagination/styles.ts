@@ -9,19 +9,18 @@ export const PaginationList = styled.ul`
 `;
 
 export const PaginationItem = styled.div`
-  margin: 0 5px;
-  padding: 5px 0;
   text-align: center;
+`;
+
+export const PaginationLink = styled.button`
+  margin: 0 5px;
   width: 30px;
+  padding: 5px 0;
   border: 1px solid transparent;
   border-radius: 5px;
   &:hover {
     background: lightblue;
   }
-`;
-
-export const PaginationLink = styled.a`
-  text-decoration: none;
 `;
 
 export const Button = styled.button`

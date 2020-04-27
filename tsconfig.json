@@ -20,5 +20,8 @@
       "@shared/*": ["shared/*"]
     }
   },
-  "include": ["src", "types/global.d.ts"]
+  "include": ["src", "types/global.d.ts"],
+  "rules": {
+    "no-console": true
+  }
 }

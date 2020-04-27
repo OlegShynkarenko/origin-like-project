@@ -9,13 +9,21 @@ import {
 } from "./styles";
 import colors from "../../utils/colors";
 
+const LIMIT_OF_PAGINATED_PAGES_TO_SHOW = 10;
+
 export const Pagination = (props: any) => {
   const { currentPage, totalPages, prev, next, firstPage, lastPage } = props;
   let pages = Array.from(Array(totalPages).keys());
 
-  currentPage >= totalPages - 10
-    ? (pages = pages.slice(totalPages - 10, totalPages))
-    : (pages = pages.slice(currentPage, currentPage + 10));
+  currentPage >= totalPages - LIMIT_OF_PAGINATED_PAGES_TO_SHOW
+    ? (pages = pages.slice(
+        totalPages - LIMIT_OF_PAGINATED_PAGES_TO_SHOW,
+        totalPages
+      ))
+    : (pages = pages.slice(
+        currentPage,
+        currentPage + LIMIT_OF_PAGINATED_PAGES_TO_SHOW
+      ));
 
   return (
     <PaginationList>
@@ -26,14 +34,14 @@ export const Pagination = (props: any) => {
         prev
       </Button>
       {pages.map(num => (
-        <PaginationItem
-          key={num}
-          style={currentPage === num ? { background: colors.N800 } : {}}
-        >
+        <PaginationItem key={num}>
           <PaginationLink
-            style={currentPage === num ? { color: colors.N0 } : {}}
+            style={
+              currentPage === num
+                ? { color: colors.N0, background: colors.N800 }
+                : { color: colors.N800 }
+            }
             onClick={(e: any) => props.paginate(e, num)}
-            href="!#"
           >
             {num}
           </PaginationLink>

@@ -32,10 +32,8 @@ function* getGamesListForACertainPage(action: Action) {
 }
 
 export function* watchGames() {
-  // @ts-ignore
   yield takeLatest(GET_GAMES_LIST, getGamesListSaga);
 }
 export function* watchCurrentPageGames() {
-  // @ts-ignore
   yield takeLatest(GET_GAMES_FOR_CURRENT_PAGE, getGamesListForACertainPage);
 }

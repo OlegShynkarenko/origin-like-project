@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as styles from "./styles";
 import { connect } from "react-redux";
 import { State, Game } from "@store/reducers/getGamesReducer";
-import { Card } from "../../components/Card/card";
+import { Card } from "../../components/Card";
 import { Pagination } from "../../components/Pagination/Pagination";
 import { Dispatch } from "redux";
 import { getGamesListForACertainPage } from "@store/actionCreators/getGamesList";
@@ -16,7 +16,7 @@ const ShopComponent = (props: IShopComponent) => {
   const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
     props.getGamesListForACertainPage(currentPage);
-  }, [props.getGamesListForACertainPage, currentPage]);
+  }, [currentPage]);
   const games = props.games.slice(0, -1);
   const totalPages = props.games.slice(-1)[0];
   const renderCards = () => {
@@ -35,31 +35,25 @@ const ShopComponent = (props: IShopComponent) => {
     });
   };
 
-  const paginate = (e: any, num: number) => {
-    e.preventDefault();
+  const paginate = (e: React.MouseEvent<HTMLButtonElement>, num: number) => {
     setCurrentPage(num);
-    //props.getGamesListForACertainPage(currentPage)
   };
 
   const onPrevPageClick = () => {
     setCurrentPage(currentPage - 1);
-    //props.getGamesListForACertainPage(currentPage)
   };
 
   const onNextPageClick = () => {
     setCurrentPage(currentPage + 1);
-    //props.getGamesListForACertainPage(currentPage)
   };
 
   const backToFirstPage = () => {
     setCurrentPage(1);
-    //props.getGamesListForACertainPage(currentPage)
   };
 
   const forwardToLastPage = () => {
     // @ts-ignore
     setCurrentPage(totalPages);
-    //props.getGamesListForACertainPage(currentPage)
   };
   return (
     <div>
